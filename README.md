@@ -21,7 +21,6 @@ Invas accurately detects expressed intragenomic inversions and reconstructs both
 ### Prerequisites
 
 - Conda/Mamba package manager
-- Python 3.x
 - Reference genome files (hg19 or hg38)
 - HISAT2 index files
 - Gene annotation files (GENCODE)
@@ -30,7 +29,7 @@ Invas accurately detects expressed intragenomic inversions and reconstructs both
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/invas.git
+git clone git@github.com:deepomicslab/INVAS.git
 cd invas
 ```
 
@@ -39,24 +38,10 @@ cd invas
 # Data preparation environment
 conda env create -f data_prepare.yaml -n invas_data_prep
 
-# SV detection environment (includes Manta)
-conda env create -f manta_sv.yaml -n manta_sv
-
 # Assembly environment
 conda env create -f assembly.yaml -n invas_assembly
 ```
 
-3. Download required tools:
-```bash
-# Download Picard
-wget https://github.com/broadinstitute/picard/releases/download/2.27.5/picard.jar -O tools/picard.jar
-
-# Download Delly
-wget https://github.com/dellytools/delly/releases/download/v1.1.6/delly_v1.1.6_linux_x86_64bit -O tools/delly
-chmod +x tools/delly
-
-# Download svaba_converter.py (if not included)
-```
 
 ## Workflow
 
@@ -73,13 +58,13 @@ conda activate invas_data_prep
 mkdir -p rna_out/$sample_name
 
 # Run RNA processing
-bash scripts/test_common_run.sh -n $sample_name \
+bash scripts/full_pipe/preprocess/test_common_run.sh -n $sample_name \
     -b $input_bam \
     -o rna_out/$sample_name \
     -r $reference_genome \
     -x $hisat_index \
     -t $threads \
-    -p tools/picard.jar
+    -p scripts/full_pipe/bin/picard.jar
 ```
 
 Output files:
@@ -91,13 +76,13 @@ Output files:
 Process WGS data and detect structural variants using multiple SV callers.
 
 ```bash
-conda activate manta_sv
+conda activate invas_assembly
 
 # Create output directory
 mkdir -p sv_out/$sample_name
 
 # Run SV detection
-bash scripts/process_sv_common.sh -s $sample_name \
+bash scripts/full_pipe/preprocess/process_sv_common.sh -s $sample_name \
     -i $input_wgs_bam \
     -o sv_out/$sample_name \
     -r $reference_genome \
@@ -114,7 +99,8 @@ Identify candidate inverted splicing events based on SV breakpoints.
 mkdir -p candidate_out
 
 # Run candidate detection
-bash scripts/full_pipe/preprocess/combine_sv_rna.sh $sample_name \
+bash scripts/full_pipe/preprocess/combine_sv_rna.sh   
+    $sample_name \ 
     sv_out/$sample_name \
     rna_out/$sample_name/hisat.map_unmapremap.s.bam \
     rna_out/$sample_name/still_unmap_bwa.s.bam \
@@ -155,14 +141,18 @@ python scripts/full_pipe/main.py \
 The assembly results are organized as follows:
 ```
 assembly_out/sample_name/
-├── GENE1/              # Gene-specific assembly results
-│   ├── hap1.fa        # Assembled transcript sequences
-│   ├── hap2.fa
-│   └── summary.txt    # Assembly statistics
+├── GENE1/                  # Gene-specific assembly results
+│   ├── *_final_inv.bed     # Records the locations of inversions
+│   ├── *_final_inv.exons   # Records the fragments involved in inversions
+│   ├── haps/               # Folder containing assembled haplotype sequences
+│   │   ├── hap1.fa         # Assembled sequence for haplotype 1
+│   │   ├── hap2.fa         # Assembled sequence for haplotype 2
+│   │   └── ...             # Additional haplotype sequences (if any)
+│   └── summary.txt         # Assembly statistics for this gene
 ├── GENE2/
 │   └── ...
 ├── ...
-└── candidate_gene.txt  # Summary of all candidate genes with inversions
+└── candidate_gene.txt       # Summary of all candidate genes with inversions
 ```
 
 Each gene folder contains:
@@ -345,8 +335,8 @@ This software is released under the [MIT/GPL/Apache] License. See LICENSE file f
 ## Contact
 
 For questions, bug reports, or feature requests:
-- Email: [your.email@institution.edu]
-- GitHub Issues: [https://github.com/yourusername/invas/issues]
+- Email: [xuedowang2-c@my.cityu.edu.hk]
+- GitHub Issues: [https://github.com/deepomicslab/INVAS/issues/new]
 
 ## Acknowledgments
 
