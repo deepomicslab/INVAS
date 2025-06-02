@@ -1,0 +1,3 @@
+python ../cal_exp.py '/run/media/wangxuedong/One Touch/simulation/5_trans_2inv/1_trans_inv1/sim_counts_matrix.rda' ENSG00000225293_trans_inv1_bi.gtf > exp.truth.txt
+python ../cal_exp.py '/run/media/wangxuedong/One Touch/simulation/5_trans_2inv/1_trans_inv2/sim_counts_matrix.rda' ENSG00000225293_trans_inv2_bi.gtf >> exp.truth.txt
+python ../cal_exp.py '/run/media/wangxuedong/One Touch/simulation/5_trans_2inv/1_trans_normal1/sim_counts_matrix.rda' ENSG00000225293_trans_normal1_bi.gtf >> exp.truth.txt

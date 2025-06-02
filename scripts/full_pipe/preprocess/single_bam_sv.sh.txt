@@ -1,0 +1,95 @@
+# 获取命令行参数
+sample=$1
+fq1=$2
+fq2=$3
+threads=$4
+ref=$5
+outdir=$6
+
+# 工具路径
+delly=/home/xuedowang2/app/delly_v1.1.6_linux_x86_64bit
+svaba_converter=/home/wangxuedong/svaba_converter.py
+samtools=~/app/samtools-1.12/samtools
+bwa=~/app/bwa-0.7.17/bwa
+svaba=~/app/svaba-1.1.0/svaba
+manta_config=/home/xuedowang2/miniconda3/envs/py27/bin/configManta.py
+manta_convert=/home/xuedowang2/miniconda3/envs/py27/bin/convertInversion.py
+
+# 创建样本目录
+sample_dir=$outdir/$sample
+mkdir -p $sample_dir
+
+echo "Processing sample: $sample"
+
+
+# Step 2: BWA 重新比对并直接排序
+echo "Running BWA alignment..."
+bwa mem -t $threads $ref \
+    $sample_dir/$fq1 \
+    $sample_dir/$fq2 | \
+samtools view -b -@ $threads | \
+samtools sort -@ $threads -O BAM -o $sample_dir/${sample}_bwa_hg38_realign_sort.bam
+
+
+# Step 3: BAM 文件索引
+sample_bam=$sample_dir/${sample}_bwa_hg38_realign_sort.bam
+samtools index -@ $threads $sample_bam
+
+# Step 4: 运行 Delly
+echo "Running Delly..."
+sample_delly_dir=$sample_dir/delly
+mkdir -p $sample_delly_dir
+$delly call -g $ref $sample_bam > $sample_delly_dir/${sample}.delly.vcf
+
+# Step 5: 运行 Svaba
+echo "Running Svaba..."
+eval "$(conda shell.bash hook)"
+conda activate manta
+svaba_dir=$sample_dir/svaba
+mkdir -p $svaba_dir
+$svaba run -a $sample \
+    -G $ref \
+    -t $sample_bam \
+    --override-reference-check \
+    --read-tracking --germline \
+    -p $threads \
+    -L 6 \
+    -I
+python2 $svaba_converter $svaba_dir/${sample}.svaba.sv.vcf $svaba_dir/${sample}.inv.bed > $svaba_dir/${sample}.svaba.sv.info.vcf
+
+# Step 6: 运行 Manta
+echo "Running MantaSV..."
+manta_dir=$sample_dir/manta
+mkdir -p $manta_dir
+$manta_config --bam $sample_bam --referenceFasta $ref --runDir $manta_dir
+python $manta_dir/runWorkflow.py
+
+$manta_convert $samtools $ref $manta_dir/results/variants/diploidSV.vcf.gz > $manta_dir/${sample}.manta.invfmt.vcf
+
+echo "Processing of $sample is complete."
+
+# Step 7: 运行 Lumpy-sv
+# echo "Running Lumpy-sv..."
+# lumpyexpress \
+#     -B sample.bam \
+#     -S sample.splitters.bam \
+#     -D sample.discordants.bam \
+#     -o sample.vcf
+lumpy_dir=$sample_dir/lumpy
+mkdir -p $lumpy_dir
+# Extract the discordant paired-end alignments.
+samtools view -b -F 1294 $sample_bam > $lumpy_dir/${sample}.discordants.unsorted.bam
+samtools sort -@ $threads -O BAM -o $lumpy_dir/${sample}.discordants.bam $lumpy_dir/${sample}.discordants.unsorted.bam
+samtools index -@ $threads $lumpy_dir/${sample}.discordants.bam
+# Extract the split-read alignments
+samtools view -h $sample_bam | ~/app/lumpy-sv/scripts/extractSplitReads_BwaMem -i stdin | samtools view -Sb - > $lumpy_dir/${sample}.splitters.unsorted.bam
+samtools sort -@ $threads -O BAM -o $lumpy_dir/${sample}.splitters.bam $lumpy_dir/${sample}.splitters.unsorted.bam
+samtools index -@ $threads $lumpy_dir/${sample}.splitters.bam
+# Run Lumpy
+lumpyexpress \
+    -B $sample_bam \
+    -S $lumpy_dir/${sample}.splitters.bam \
+    -D $lumpy_dir/${sample}.discordants.bam \
+    -o $lumpy_dir/${sample}.vcf
+# genotyping
+svtyper -B $sample_bam -S $lumpy_dir/${sample}.splitters.bam -i $lumpy_dir/${sample}.vcf > $lumpy_dir/${sample}.lumpy.vcf

@@ -1,0 +1,47 @@
+import parasail
+from Bio.Seq import Seq
+
+def best_alignment(query, ref, open_penalty, extend_penalty, matrix):
+    # 对query序列进行反向互补转换
+    query_revcomp = str(Seq(query).reverse_complement())
+    print(query_revcomp)
+    print(str(Seq(query).complement()))
+    print(str(Seq(query))[::-1])
+    ref_revcomp = str(Seq(ref).reverse_complement())
+    # 对原始query序列进行比对
+    result = parasail.ssw(query, ref, open_penalty, extend_penalty, matrix)
+    r = parasail.sw_trace(query, ref, 10, 1, parasail.blosum62)
+
+    # 对反向互补的query序列进行比对
+    result_revcomp = parasail.ssw(query_revcomp, ref, open_penalty, extend_penalty, matrix)
+    return result, result_revcomp, r
+
+    # 比较两个方向的比对分数，并选择分数最高的那个
+    if result.score1 >= result_revcomp.score1:
+        return result
+    else:
+        return result_revcomp
+
+# 使用示例
+ref="CTGGGAGGCGCAGAGTGTCCTGGGGGAGGCAGGGCCGGCCCTTCCCTCCATGGACACCCAGCTTTCCCACAGGCCCTACATGTCTGTGGGTTCCCTGCATGACCAGGTGATCTACCCGGACTCAGTGGAGGACATGCGAAGGAACGGCTACTCGGAGCAGGACCTGGAAGCCATCCTGGACATCGTGCACCCGCACCACACCCTGCAGCGGGAGGGAGGTAGGAGGCCTGGGGCTGGCAGCCGCCCTTTGTCCCACCCTGGCCTCTCCCTTGGCCTCCAGGGAGTGAAGA"
+query="CTGGGAGGCG"
+
+res1, reverse, res3 = best_alignment(query, ref, 10, 1, parasail.blosum62)
+
+print('formard')
+print(res1.score1)
+print(res1.cigar)
+print(res1.ref_begin1)
+print(res1.ref_end1)
+print(res1.read_begin1)
+print(res1.read_end1)
+print("reverse")
+print(reverse.score1)
+print(reverse.cigar)
+print(reverse.ref_begin1)
+print(reverse.ref_end1)
+print(reverse.read_begin1)
+print(reverse.read_end1)
+
+# print(res3.cigar.decode)
+# print(res3.cigar.seq)
