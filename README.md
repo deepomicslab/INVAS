@@ -36,10 +36,10 @@ cd invas
 2. Create conda environments:
 ```bash
 # Data preparation environment
-conda env create -f data_prepare.yaml -n invas_data_prep
+conda env create -f invas_prepare.yaml -n invas_data_prep
 
 # Assembly environment
-conda env create -f assembly.yaml -n invas_assembly
+# conda env create -f assembly.yaml -n invas_assembly
 ```
 
 
