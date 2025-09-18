@@ -58,7 +58,7 @@ conda activate invas_data_prep
 mkdir -p rna_out/$sample_name
 
 # Run RNA processing
-bash scripts/full_pipe/preprocess/test_common_run.sh -n $sample_name \
+bash scripts/full_pipe/preprocess/process_rna_common.sh -n $sample_name \
     -b $input_bam \
     -o rna_out/$sample_name \
     -r $reference_genome \
