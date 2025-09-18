@@ -28,11 +28,11 @@ trap 'cleanup $?' EXIT
 # ===== Settings =====
 # 
 SAMTOOLS="${SAMTOOLS:-samtools}"
-DELLY="${DELLY:-/home/xuedowang2/app/delly_v1.1.6_linux_x86_64bit}"
+DELLY="${DELLY:-delly}"
 # MANTA_CONFIG="/home/xuedowang2/miniconda3/envs/py27/bin/configManta.py"
 # MANTA_CONVERT="/home/xuedowang2/miniconda3/envs/py27/bin/convertInversion.py"
-MANTA_CONFIG="${MANTA_CONFIG:-configManta.py}"
-MANTA_CONVERT="${MANTA_CONVERT:-convertInversion.py}"
+MANTA_CONFIG="$(which configManta.py)"
+MANTA_CONVERT="$(which convertInversion.py)"
 SVABA="${SVABA:-svaba}"
 LUMPYEXPRESS="${LUMPYEXPRESS:-lumpyexpress}"
 LUMPY_EXTRACT="${LUMPY_EXTRACT:-extractSplitReads_BwaMem}"
