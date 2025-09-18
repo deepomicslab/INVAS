@@ -3,13 +3,13 @@
 # Simple SV Detection Pipeline
 # Optimized version with proper manta workflow
 
-# 安全检查：防止shell层级过深
+# safe guard against deep recursion
 # if [[ ${SHLVL:-0} -gt 5 ]]; then
 #     echo "ERROR: Shell level too high ($SHLVL). Starting fresh shell."
 #     exec bash -l "$0" "$@"
 # fi
 
-# 防止重复执行
+# Avoid multiple instances in the same session
 if [[ -n "$SV_PIPELINE_RUNNING" ]]; then
     echo "ERROR: SV pipeline already running in this session"
     exit 1
@@ -18,15 +18,15 @@ export SV_PIPELINE_RUNNING=1
 
 set -e
 
-# 清理函数
+# cleanup function to unset the running flag
 cleanup() {
     unset SV_PIPELINE_RUNNING
     exit ${1:-0}
 }
 trap 'cleanup $?' EXIT
 
-# ===== 工具路径配置 =====
-# 根据您的环境修改这些路径
+# ===== Settings =====
+# 
 SAMTOOLS="${SAMTOOLS:-samtools}"
 DELLY="${DELLY:-/home/xuedowang2/app/delly_v1.1.6_linux_x86_64bit}"
 # MANTA_CONFIG="/home/xuedowang2/miniconda3/envs/py27/bin/configManta.py"
@@ -40,12 +40,12 @@ SVTYPER="${SVTYPER:-svtyper}"
 # svaba_converter=/home/xuedowang2/app/svaba_converter.py
 SVABA_CONVERTER="${SVABA_CONVERTER:-/home/xuedowang2/app/svaba_converter.py}"
 
-# ===== 默认参数 =====
+# ===== Default Parameters =====
 THREADS=8
 CALLERS="delly,manta,svaba,lumpy"
 VERBOSE=false
 
-# ===== 帮助信息 =====
+# ===== help function =====
 show_help() {
     cat << EOF
 Usage: $0 -i input.bam -o output_dir -r reference.fa -s sample_name [options]
@@ -83,7 +83,7 @@ Output Structure:
 EOF
 }
 
-# ===== 日志函数 =====
+# ===== logging functions =====
 log_info() {
     echo "[$(date '+%H:%M:%S')] INFO: $*"
 }
@@ -98,7 +98,7 @@ log_debug() {
     fi
 }
 
-# ===== 参数解析 =====
+# ===== parse arguments =====
 parse_arguments() {
     while [[ $# -gt 0 ]]; do
         case $1 in
@@ -143,7 +143,7 @@ parse_arguments() {
     done
 }
 
-# ===== 参数验证 =====
+# ===== parameter validation =====
 validate_inputs() {
     local errors=()
     
@@ -167,14 +167,14 @@ validate_inputs() {
     fi
 }
 
-# ===== 工具检查 =====
+# ===== tool availability check =====
 check_tools() {
     local missing_tools=()
     
-    # 检查基础工具
+    # check samtools
     command -v "$SAMTOOLS" >/dev/null || missing_tools+=("samtools: $SAMTOOLS")
     
-    # 检查选择的SV检测工具
+    # check selected callers
     IFS=',' read -ra CALLER_ARRAY <<< "$CALLERS"
     for caller in "${CALLER_ARRAY[@]}"; do
         case $caller in
@@ -205,7 +205,7 @@ check_tools() {
     log_info "All required tools found"
 }
 
-# ===== 主函数 =====
+# ===== main workflow =====
 main() {
     local start_time=$(date +%s)
     
@@ -218,14 +218,14 @@ main() {
     log_info "Callers: $CALLERS"
     log_info "=============================="
     
-    # 创建输出目录
+    # create output directory
     mkdir -p "$OUTPUT_DIR"
     cd "$OUTPUT_DIR" || cleanup 1
     
-    # 检查BAM索引
+    # index BAM if needed
     check_bam_index
     
-    # 运行选择的SV检测工具
+    # run selected callers
     IFS=',' read -ra CALLER_ARRAY <<< "$CALLERS"
     for caller in "${CALLER_ARRAY[@]}"; do
         log_info "Starting $caller..."
@@ -248,17 +248,17 @@ main() {
         esac
     done
     
-    # 生成汇总报告
+    # generate summary report
     generate_summary
     
-    # 计算运行时间
+    # calculate runtime
     local end_time=$(date +%s)
     local runtime=$((end_time - start_time))
     log_info "===== SV Detection Complete ====="
     log_info "Total runtime: $(printf '%02d:%02d:%02d' $((runtime/3600)) $((runtime%3600/60)) $((runtime%60)))"
 }
 
-# ===== BAM索引检查 =====
+# ===== index BAM if needed =====
 check_bam_index() {
     log_info "Checking BAM file index..."
     if [[ ! -f "${INPUT_BAM}.bai" ]]; then
@@ -300,7 +300,7 @@ run_manta() {
     local manta_dir="$OUTPUT_DIR/manta"
     mkdir -p "$manta_dir"
     
-    # 配置MANTA
+    # setup MANTA workflow
     log_info "  Configuring MANTA..."
     log_debug "MANTA config command: $MANTA_CONFIG --bam $INPUT_BAM --referenceFasta $REFERENCE --runDir $manta_dir"
     
@@ -312,7 +312,7 @@ run_manta() {
         return 1
     fi
     
-    # 运行MANTA工作流
+    # run MANTA workflow
     log_info "  Running MANTA workflow..."
     log_debug "MANTA run command: python $manta_dir/runWorkflow.py -j $THREADS"
     
@@ -321,14 +321,14 @@ run_manta() {
         return 1
     fi
     
-    # 检查输出文件
+    # check for output VCF
     local diploid_vcf="$manta_dir/results/variants/diploidSV.vcf.gz"
     if [[ ! -f "$diploid_vcf" ]]; then
         log_error "MANTA output file not found: $diploid_vcf"
         return 1
     fi
     
-    # 转换倒位格式
+    # format conversion
     log_info "  Converting inversion format..."
     local output_vcf="$manta_dir/${SAMPLE_NAME}.manta.invfmt.vcf"
     log_debug "Conversion command: $MANTA_CONVERT $SAMTOOLS $REFERENCE $diploid_vcf"
@@ -402,18 +402,18 @@ run_lumpy() {
     local current_dir=$(pwd)
     cd "$lumpy_dir" || return 1
     
-    # 提取不一致reads
+    # extract discordant reads
     log_info "  Extracting discordant reads..."
     $SAMTOOLS view -b -F 1294 -@ "$THREADS" "$INPUT_BAM" \
         > "${SAMPLE_NAME}.discordants.unsorted.bam"
     
-    # 提取分裂reads
+    # extract split reads
     log_info "  Extracting split reads..."
     $SAMTOOLS view -h "$INPUT_BAM" \
         | $LUMPY_EXTRACT -i stdin \
         | $SAMTOOLS view -Sb -@ "$THREADS" -o "${SAMPLE_NAME}.splitters.unsorted.bam"
     
-    # 排序比对文件
+    # sort and index
     log_info "  Sorting alignment files..."
     $SAMTOOLS sort -@ "$THREADS" "${SAMPLE_NAME}.discordants.unsorted.bam" \
         -o "${SAMPLE_NAME}.discordants.bam"
@@ -423,7 +423,7 @@ run_lumpy() {
         -o "${SAMPLE_NAME}.splitters.bam"
     $SAMTOOLS index "${SAMPLE_NAME}.splitters.bam"
     
-    # 运行LUMPY
+    # run LUMPY
     log_info "  Running LumpyExpress..."
     log_debug "LUMPY command: $LUMPYEXPRESS -B $INPUT_BAM -S ${SAMPLE_NAME}.splitters.bam -D ${SAMPLE_NAME}.discordants.bam -o ${SAMPLE_NAME}.lumpy.vcf"
     
@@ -433,7 +433,7 @@ run_lumpy() {
         -D "${SAMPLE_NAME}.discordants.bam" \
         -o "${SAMPLE_NAME}.lumpy.vcf"; then
         
-        # SVTyper基因型分析（可选）
+        # SVTyper geno（可选）
         if command -v "$SVTYPER" >/dev/null; then
             log_info "  Running SVTyper for genotyping..."
             if $SVTYPER \
@@ -459,11 +459,11 @@ run_lumpy() {
     
     cd "$current_dir"
     
-    # 清理临时文件
+    # clean up intermediate files
     rm -f "$lumpy_dir"/*.unsorted.bam
 }
 
-# ===== 汇总报告 =====
+# ===== results summary =====
 generate_summary() {
     log_info "Generating summary report..."
     
@@ -528,13 +528,13 @@ EOF
     echo "" | tee -a "$summary_file"
     echo "===== Output Files =====" >> "$summary_file"
     
-    # 列出所有VCF文件
+    # list all VCF files
     find . -name "*.vcf" -o -name "*.vcf.gz" | sort >> "$summary_file"
     
     log_info "Summary saved to: $summary_file"
 }
 
-# ===== 运行流程 =====
+# ===== running the script =====
 parse_arguments "$@"
 validate_inputs
 check_tools

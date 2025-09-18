@@ -1,10 +1,10 @@
 #!/bin/bash
-# 单样本SV分析脚本 - scripts_dir默认为当前脚本目录
+# single sample sv analysis script - default scripts_dir is the current script directory
 
-# 获取脚本所在目录的绝对路径
+# get the directory of the current script
 DEFAULT_SCRIPTS_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# 定义SV caller处理函数
+# define a function to process each SV caller
 process_sv_caller() {
     local caller="$1"
     local vcf_file="$2"
@@ -12,13 +12,13 @@ process_sv_caller() {
     local res_dir="$4"
     local wgs_sample="$5"
     
-    # 检查VCF文件是否存在
+    # check if VCF file exists
     if [ ! -f "$vcf_file" ]; then
         echo "Warning: $caller VCF not found: $vcf_file"
         return 1
     fi
     
-    # 对于需要检查文件大小的caller
+    # check if VCF file is empty for lumpy and svaba
     if [[ "$caller" == "lumpy" || "$caller" == "svaba" ]]; then
         if [ ! -s "$vcf_file" ]; then
             echo "Warning: $caller VCF is empty: $vcf_file"
@@ -26,14 +26,14 @@ process_sv_caller() {
         fi
     fi
     
-    # 创建结果目录
+    # create result directory if not exists
     if [ ! -d "$res_dir" ]; then
         mkdir -p "$res_dir"
     fi
     
     echo "Processing $caller for $wgs_sample"
     
-    # 根据caller执行特定的预处理
+    # filter and preprocess based on caller
     case "$caller" in
         "delly")
             python "$scripts_dir/filter_delly.py" --output_vcf "$filtered_vcf" --input_vcf "$vcf_file"
@@ -71,7 +71,7 @@ process_sv_caller() {
     fi
 }
 
-# 显示使用帮助
+# define usage function
 show_usage() {
     cat << EOF
 Usage: $0 <sample_name> <sv_dir> <hisat2_bam> <bwa_bam> <output_dir> <ref_bed> <callers> [scripts_dir]
@@ -120,7 +120,7 @@ Examples:
 EOF
 }
 
-# 主处理逻辑
+# main script
 sample_name=$1
 sv_dir=$2
 hisat2_bam=$3
@@ -128,16 +128,16 @@ bwa_bam=$4
 output_dir=$5
 ref_bed=$6
 callers=$7
-scripts_dir=${8:-$DEFAULT_SCRIPTS_DIR}  # 如果第8个参数为空，使用默认值
+scripts_dir=${8:-$DEFAULT_SCRIPTS_DIR}  # default to current script directory
 
-# 参数检查
+# check argument count
 if [ $# -lt 7 ] || [ $# -gt 8 ]; then
     echo "Error: Invalid number of arguments (got $#, expected 7 or 8)"
     show_usage
     exit 1
 fi
 
-# 检查必要目录和文件
+# check if required files and directories exist
 if [ ! -d "$sv_dir" ]; then
     echo "Error: SV directory not found: $sv_dir"
     exit 1
@@ -163,7 +163,7 @@ if [ ! -d "$scripts_dir" ]; then
     exit 1
 fi
 
-# 检查必要的脚本文件
+# check if required scripts exist
 required_scripts=("filter_delly.py" "preprocess.sh")
 missing_scripts=()
 for script in "${required_scripts[@]}"; do
@@ -178,7 +178,7 @@ if [ ${#missing_scripts[@]} -gt 0 ]; then
     exit 1
 fi
 
-# 验证callers参数
+# validate callers
 valid_callers=("delly" "manta" "lumpy" "svaba")
 IFS=',' read -ra caller_array <<< "$callers"
 
@@ -200,16 +200,16 @@ echo "Scripts directory: $scripts_dir"
 echo "Callers to process: $callers"
 echo "======================================"
 
-# 从样本名推断WGS样本名（假设相同）
+# get WGS sample name (assumed same as RNA sample name)
 wgs_sample=$sample_name
 
-# 创建样本结果目录
+# create output directories
 sample_res_dir="$output_dir"/res/$sample_name
 if [ ! -d "$sample_res_dir" ]; then
     mkdir -p "$sample_res_dir"
 fi
 
-# 记录分析信息
+# record analysis info
 cat > "$sample_res_dir/analysis_info.txt" << EOF
 ===== Analysis Information =====
 Sample: $sample_name
@@ -223,13 +223,13 @@ Callers: $callers
 =================================
 EOF
 
-# 处理统计
+# handle each caller
 processed_count=0
 failed_count=0
 processed_callers=()
 failed_callers=()
 
-# 处理每个指定的caller
+# handle each caller
 for caller in "${caller_array[@]}"; do
     echo ""
     echo "--- Processing $caller ---"
@@ -291,7 +291,7 @@ for caller in "${caller_array[@]}"; do
     esac
 done
 
-# 生成处理报告
+# create a summary report
 report_file="$sample_res_dir/processing_report.txt"
 cat > "$report_file" << EOF
 ===== Processing Summary =====
@@ -327,7 +327,7 @@ echo "Results directory: $sample_res_dir"
 echo "Report saved: $report_file"
 echo "==============================="
 
-# 如果所有caller都失败，退出时返回错误码
+# if all callers failed, exit with error
 if [ $processed_count -eq 0 ]; then
     echo "Error: All callers failed to process"
     exit 1
