@@ -339,7 +339,7 @@ trim_reads() {
         "ILLUMINACLIP:${TRIMMOMATIC_ADAPTERS}:${TRIM_ILLUMINACLIP}" \
         "LEADING:${TRIM_LEADING}" \
         "TRAILING:${TRIM_TRAILING}" \
-        "MINLEN:${TRIM_MINLEN}"
+        "MINLEN:${TRIM_MINLEN}" -phred33
     
     deactivate_conda
     
