@@ -243,7 +243,7 @@ bash scripts/full_pipe/preprocess/combine_sv_rna.sh $sample_name \
 
 # Step 4: Transcriptome assembly
 echo "Step 4: Assembling transcripts..."
-conda activate invas_data_prep
+conda activate invas_assembly
 
 mkdir -p $assembly_dir/$sample_name
 
