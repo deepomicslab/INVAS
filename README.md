@@ -39,7 +39,7 @@ cd invas
 conda env create -f invas_prepare.yaml -n invas_data_prep
 
 # Assembly environment
-# conda env create -f assembly.yaml -n invas_assembly
+conda env create -f invas_assembly.yaml -n invas_assembly
 ```
 
 
