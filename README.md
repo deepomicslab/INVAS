@@ -301,8 +301,8 @@ done < "$samples_file"
 - **Memory**: Minimum 100GB RAM (more for larger datasets)
 - **CPU**: Multi-core processor (16+ cores recommended)
 - **Storage**: 
-  - ~500GB for intermediate files per sample
-  - ~100GB for reference files and indices
+  - ~50GB for intermediate files per sample
+  - ~20GB for reference files and indices
 - **Operating System**: Linux (tested on Ubuntu 20.04, CentOS 7)
 
 ## Troubleshooting
