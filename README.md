@@ -190,7 +190,7 @@ assembly_dir="$base_dir/assembly_out"
 
 # Step 1: RNA-seq processing
 echo "Step 1: Processing RNA-seq data..."
-conda activate invas_data_prep
+conda activate invas_assembly 
 
 mkdir -p $rna_dir/$sample_name
 
@@ -211,7 +211,7 @@ bash scripts/test_common_run.sh \
 
 # Step 2: WGS SV detection
 echo "Step 2: Detecting structural variants..."
-conda activate manta_sv
+conda activate invas_data_prep
 
 mkdir -p $sv_dir/$sample_name
 
@@ -243,7 +243,7 @@ bash scripts/full_pipe/preprocess/combine_sv_rna.sh $sample_name \
 
 # Step 4: Transcriptome assembly
 echo "Step 4: Assembling transcripts..."
-conda activate invas_assembly
+conda activate invas_data_prep
 
 mkdir -p $assembly_dir/$sample_name
 
