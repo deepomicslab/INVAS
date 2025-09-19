@@ -45,9 +45,9 @@ conda env create -f invas_assembly.yaml -n invas_assembly
 
 ## Workflow
 
-Invas workflow consists of six steps, implemented through four main processing stages:
+The INVAS workflow consists of four main stages, with the first three focused on preliminary data preparation and the final stage being the core assembly via `main.py`.
 
-### Step 1: RNA-seq Data Processing
+### Step 1: RNA-Seq Data Processing (Preliminary)
 
 Process RNA-seq data for quality control, alignment, and unmapped read extraction.
 
@@ -71,7 +71,7 @@ Output files:
 - `hisat.map_unmapremap.s.bam`: Mapped and remapped reads
 - `still_unmap_bwa.s.bam`: Unmapped reads aligned with BWA
 
-### Step 2: WGS Data Processing and SV Detection
+### Step 2: WGS Data Processing and SV Detection (Preliminary)
 
 Process WGS data and detect structural variants using multiple SV callers.
 
@@ -90,7 +90,7 @@ bash scripts/full_pipe/preprocess/process_sv_common.sh -s $sample_name \
     -c lumpy,delly,manta,svaba
 ```
 
-### Step 3: Candidate Intragenic Inversion Event Detection
+### Step 3: Candidate Intragenic Inversion Event Detection (Preliminary)
 
 Identify candidate inverted splicing events based on SV breakpoints.
 
@@ -113,7 +113,7 @@ Gene annotation files provided:
 - hg19: `scripts/full_pipe/annotation/hg19_genes.gencode.bed`
 - hg38: `scripts/full_pipe/annotation/hg38_genes.gencode.bed`
 
-### Step 4: Transcriptome Assembly
+### Step 4: Core Transcriptome Assembly
 
 Perform conjugate graph-based assembly to reconstruct transcripts.
 
@@ -188,7 +188,7 @@ sv_dir="$base_dir/sv_out"
 candidate_dir="$base_dir/candidate_out"
 assembly_dir="$base_dir/assembly_out"
 
-# Step 1: RNA-seq processing
+# Step 1: RNA-Seq Data Processing (Preliminary)
 echo "Step 1: Processing RNA-seq data..."
 conda activate invas_assembly 
 
@@ -209,7 +209,7 @@ bash scripts/test_common_run.sh \
     -t $threads \
     -p tools/picard.jar
 
-# Step 2: WGS SV detection
+# Step 2: WGS Data Processing and SV Detection (Preliminary)
 echo "Step 2: Detecting structural variants..."
 conda activate invas_data_prep
 
@@ -229,7 +229,7 @@ bash scripts/process_sv_common.sh \
     -t $threads \
     -c lumpy,delly,manta,svaba
 
-# Step 3: Candidate detection
+# Step 3: Candidate Intragenic Inversion Event Detection (Preliminary)
 echo "Step 3: Detecting candidate inversions..."
 mkdir -p $candidate_dir
 
@@ -241,7 +241,7 @@ bash scripts/full_pipe/preprocess/combine_sv_rna.sh $sample_name \
     $gene_bed \
     delly,manta,lumpy,svaba
 
-# Step 4: Transcriptome assembly
+# Step 4: Core Transcriptome Assembly
 echo "Step 4: Assembling transcripts..."
 conda activate invas_assembly
 
