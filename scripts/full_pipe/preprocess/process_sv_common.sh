@@ -27,7 +27,8 @@ trap 'cleanup $?' EXIT
 
 # ===== Settings =====
 # 
-SAMTOOLS="${SAMTOOLS:-samtools}"
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd -P)"
+SAMTOOLS="$(which samtools)"
 DELLY="${DELLY:-delly}"
 # MANTA_CONFIG="/home/xuedowang2/miniconda3/envs/py27/bin/configManta.py"
 # MANTA_CONVERT="/home/xuedowang2/miniconda3/envs/py27/bin/convertInversion.py"
@@ -38,7 +39,7 @@ LUMPYEXPRESS="${LUMPYEXPRESS:-lumpyexpress}"
 LUMPY_EXTRACT="${LUMPY_EXTRACT:-extractSplitReads_BwaMem}"
 SVTYPER="${SVTYPER:-svtyper}"
 # svaba_converter=/home/xuedowang2/app/svaba_converter.py
-SVABA_CONVERTER="${SVABA_CONVERTER:-/home/xuedowang2/app/svaba_converter.py}"
+SVABA_CONVERTER="${SVABA_CONVERTER:-$SCRIPT_DIR/svaba_converter.py}"
 
 # ===== Default Parameters =====
 THREADS=8
