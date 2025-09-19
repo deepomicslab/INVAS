@@ -3,8 +3,8 @@ set -euo pipefail
 
 REF=../../../../wgs_ref/hg19.fa
 CHR=chr12
-GENE_START=71518876
-GENE_END=71551779
+GENE_START=71533490
+GENE_END=71533627
 FLANK=300
 
 # 计算三段坐标
