@@ -1,0 +1,10 @@
+===== Analysis Information =====
+Sample: test
+Analysis Date: Sat 20 Sep 2025 12:31:02 AM HKT
+SV Directory: sv_out/test/sv_out/test
+HISAT2 BAM: rna_out/test/hisat.map_unmapremap.s.bam
+BWA Unmap BAM: rna_out/test/still_unmap_bwa.s.bam
+Reference BED: /data6/wangxuedong/invas_nc/INVAS/scripts/full_pipe/annotation/hg19_genes.gencode.bed
+Scripts Directory: /data6/wangxuedong/invas_nc/INVAS/scripts/full_pipe/preprocess
+Callers: delly,manta,lumpy,svaba
+=================================
