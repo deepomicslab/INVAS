@@ -1,3 +1,11 @@
+#!/bin/bash
+#SBATCH --job-name='align_rg'
+#SBATCH --cpus-per-task=2
+#SBATCH --ntasks=1
+#SBATCH --output=log.sv.log
+#SBATCH --mem=10G
+#SBATCH --time=14-00:00:00
+
 # conda activate /data6/wangxuedong/invas_nc/invas_data_prep
 reference_genome="/data6/wangxuedong/invas_nc/wgs_ref/hg19.fa"
 sample_name="test"
@@ -12,4 +20,4 @@ bash ../scripts/full_pipe/preprocess/process_sv_common.sh -s $sample_name \
     -o sv_out/$sample_name \
     -r $reference_genome \
     -t $threads \
-    -c svaba
+    -c delly,manta,svaba

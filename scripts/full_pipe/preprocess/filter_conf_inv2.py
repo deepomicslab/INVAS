@@ -2,17 +2,14 @@ import sys
 from pybedtools import BedTool
 
 def read_bed_file(bed_file_path):
-    """读取BED文件，并返回BedTool对象"""
     return BedTool(bed_file_path)
 
 def read_inversion_file(inversion_file_path):
-    """读取inversion文件，并返回列表"""
     with open(inversion_file_path, 'r') as file:
         inversions = [line.strip() for line in file.readlines()]
     return inversions
 
 def check_inversions(inversions, high_conf_bed):
-    """检查inversion记录是否与高置信度区域有重叠，并返回结果列表"""
     overlapping_inversions = []
 
     for inv in inversions:
@@ -42,16 +39,12 @@ def main():
     inversion_file_path = sys.argv[2]
     output_file_path = sys.argv[3]
 
-    # 读取高置信度区域
     high_conf_bed = read_bed_file(high_confidence_bed_path)
 
-    # 读取inversion记录
     inversions = read_inversion_file(inversion_file_path)
 
-    # 检查重叠的inversion
     overlapping_inversions = check_inversions(inversions, high_conf_bed)
 
-    # 写入重叠的inversion记录到输出文件
     with open(output_file_path, 'w') as output_file:
         for inv in overlapping_inversions:
             output_file.write(inv + '\n')

@@ -1,4 +1,4 @@
-[2025-09-19T02:53:49.384670Z] [ss620a.cs.cityu.edu.hk] [140457_1] [pyflowTaskWrapper:getAlignmentStats_removeTmpDir] [wrapperSignal] wrapperStart
-[2025-09-19T02:53:49.474222Z] [ss620a.cs.cityu.edu.hk] [140457_1] [pyflowTaskWrapper:getAlignmentStats_removeTmpDir] [wrapperSignal] taskStart
-[2025-09-19T02:53:49.544533Z] [ss620a.cs.cityu.edu.hk] [140457_1] [pyflowTaskWrapper:getAlignmentStats_removeTmpDir] [wrapperSignal] taskExitCode 0
-[2025-09-19T02:53:49.640091Z] [ss620a.cs.cityu.edu.hk] [140457_1] [pyflowTaskWrapper:getAlignmentStats_removeTmpDir] [wrapperSignal] taskElapsedSec 0
+[2025-09-19T18:49:27.371050Z] [ss620a.cs.cityu.edu.hk] [2880520_1] [pyflowTaskWrapper:getAlignmentStats_removeTmpDir] [wrapperSignal] wrapperStart
+[2025-09-19T18:49:27.454742Z] [ss620a.cs.cityu.edu.hk] [2880520_1] [pyflowTaskWrapper:getAlignmentStats_removeTmpDir] [wrapperSignal] taskStart
+[2025-09-19T18:49:27.512878Z] [ss620a.cs.cityu.edu.hk] [2880520_1] [pyflowTaskWrapper:getAlignmentStats_removeTmpDir] [wrapperSignal] taskExitCode 0
+[2025-09-19T18:49:27.600815Z] [ss620a.cs.cityu.edu.hk] [2880520_1] [pyflowTaskWrapper:getAlignmentStats_removeTmpDir] [wrapperSignal] taskElapsedSec 0

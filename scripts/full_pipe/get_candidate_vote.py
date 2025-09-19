@@ -49,7 +49,7 @@ def parse_folder(input_folder, min_support):
 
                             start, end = map(int, match.groups())
                             inversion_length = end - start
-                            if inversion_length > 10000:
+                            if inversion_length > 20000:
                                 # 跳过长度大于 10000 的记录
                                 print(f"过滤掉 inversion 长度 > 10000 的记录: {line}")
                                 continue

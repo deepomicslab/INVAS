@@ -1,4 +1,4 @@
-[2025-09-19T02:53:28.429285Z] [ss620a.cs.cityu.edu.hk] [140457_1] [pyflowTaskWrapper:getAlignmentStats_generateStats_000] [wrapperSignal] wrapperStart
-[2025-09-19T02:53:28.493661Z] [ss620a.cs.cityu.edu.hk] [140457_1] [pyflowTaskWrapper:getAlignmentStats_generateStats_000] [wrapperSignal] taskStart
-[2025-09-19T02:53:29.167988Z] [ss620a.cs.cityu.edu.hk] [140457_1] [pyflowTaskWrapper:getAlignmentStats_generateStats_000] [wrapperSignal] taskExitCode 0
-[2025-09-19T02:53:29.251038Z] [ss620a.cs.cityu.edu.hk] [140457_1] [pyflowTaskWrapper:getAlignmentStats_generateStats_000] [wrapperSignal] taskElapsedSec 0
+[2025-09-19T18:49:15.755405Z] [ss620a.cs.cityu.edu.hk] [2880520_1] [pyflowTaskWrapper:getAlignmentStats_generateStats_000] [wrapperSignal] wrapperStart
+[2025-09-19T18:49:15.802955Z] [ss620a.cs.cityu.edu.hk] [2880520_1] [pyflowTaskWrapper:getAlignmentStats_generateStats_000] [wrapperSignal] taskStart
+[2025-09-19T18:49:16.588063Z] [ss620a.cs.cityu.edu.hk] [2880520_1] [pyflowTaskWrapper:getAlignmentStats_generateStats_000] [wrapperSignal] taskExitCode 0
+[2025-09-19T18:49:16.671323Z] [ss620a.cs.cityu.edu.hk] [2880520_1] [pyflowTaskWrapper:getAlignmentStats_generateStats_000] [wrapperSignal] taskElapsedSec 0

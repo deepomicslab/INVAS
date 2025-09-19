@@ -1,4 +1,4 @@
-[2025-09-19T02:56:07.604455Z] [ss620a.cs.cityu.edu.hk] [140457_1] [pyflowTaskWrapper:mergeLocusGraph] [wrapperSignal] wrapperStart
-[2025-09-19T02:56:07.647273Z] [ss620a.cs.cityu.edu.hk] [140457_1] [pyflowTaskWrapper:mergeLocusGraph] [wrapperSignal] taskStart
-[2025-09-19T02:56:07.698719Z] [ss620a.cs.cityu.edu.hk] [140457_1] [pyflowTaskWrapper:mergeLocusGraph] [wrapperSignal] taskExitCode 0
-[2025-09-19T02:56:07.766500Z] [ss620a.cs.cityu.edu.hk] [140457_1] [pyflowTaskWrapper:mergeLocusGraph] [wrapperSignal] taskElapsedSec 0
+[2025-09-19T18:53:16.369360Z] [ss620a.cs.cityu.edu.hk] [2880520_1] [pyflowTaskWrapper:mergeLocusGraph] [wrapperSignal] wrapperStart
+[2025-09-19T18:53:16.434552Z] [ss620a.cs.cityu.edu.hk] [2880520_1] [pyflowTaskWrapper:mergeLocusGraph] [wrapperSignal] taskStart
+[2025-09-19T18:53:16.519548Z] [ss620a.cs.cityu.edu.hk] [2880520_1] [pyflowTaskWrapper:mergeLocusGraph] [wrapperSignal] taskExitCode 0
+[2025-09-19T18:53:16.585072Z] [ss620a.cs.cityu.edu.hk] [2880520_1] [pyflowTaskWrapper:mergeLocusGraph] [wrapperSignal] taskElapsedSec 0

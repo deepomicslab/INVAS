@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-FA="TSPAN8.hg19.flank300.inv.fa"
+FA="chr12_concat.fa"
 R1="inv_wgs_R1.fq"
 R2="inv_wgs_R2.fq"
 

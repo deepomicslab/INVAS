@@ -263,8 +263,8 @@ for caller in "${caller_array[@]}"; do
             ;;
             
         "lumpy")
-            lumpy_vcf="$sv_dir/lumpy/$sample_name.lumpy.svtyper.vcf"
-            filtered_lumpy_vcf="$sv_dir/lumpy/$sample_name.lumpy.svtyper.f.vcf"
+            lumpy_vcf="$sv_dir/lumpy/$sample_name.lumpy.genotyped.vcf"
+            filtered_lumpy_vcf="$sv_dir/lumpy/$sample_name.lumpy.genotyped.f.vcf"
             lumpy_res_dir="$sample_res_dir"/lumpy/
             
             if process_sv_caller "lumpy" "$lumpy_vcf" "$filtered_lumpy_vcf" "$lumpy_res_dir" "$wgs_sample"; then

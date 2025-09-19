@@ -1,3 +1,10 @@
+#!/bin/bash
+#SBATCH --job-name='align_rg'
+#SBATCH --cpus-per-task=8
+#SBATCH --ntasks=1
+#SBATCH --output=log.assembly.log
+#SBATCH --mem=10G
+#SBATCH --time=14-00:00:00
 #conda activate invas_assembly
 sample_name="test"
 

@@ -1,4 +1,4 @@
-[2025-09-19T02:53:30.629315Z] [ss620a.cs.cityu.edu.hk] [140457_1] [pyflowTaskWrapper:getChromDepth_sample000_estimateChromDepth_040_chr17_gl000206_random_to_042_chr19_gl000208_random] [wrapperSignal] wrapperStart
-[2025-09-19T02:53:30.691467Z] [ss620a.cs.cityu.edu.hk] [140457_1] [pyflowTaskWrapper:getChromDepth_sample000_estimateChromDepth_040_chr17_gl000206_random_to_042_chr19_gl000208_random] [wrapperSignal] taskStart
-[2025-09-19T02:53:30.737618Z] [ss620a.cs.cityu.edu.hk] [140457_1] [pyflowTaskWrapper:getChromDepth_sample000_estimateChromDepth_040_chr17_gl000206_random_to_042_chr19_gl000208_random] [wrapperSignal] taskExitCode 0
-[2025-09-19T02:53:30.818584Z] [ss620a.cs.cityu.edu.hk] [140457_1] [pyflowTaskWrapper:getChromDepth_sample000_estimateChromDepth_040_chr17_gl000206_random_to_042_chr19_gl000208_random] [wrapperSignal] taskElapsedSec 0
+[2025-09-19T18:49:42.316757Z] [ss620a.cs.cityu.edu.hk] [2880520_1] [pyflowTaskWrapper:getChromDepth_sample000_estimateChromDepth_040_chr17_gl000206_random_to_042_chr19_gl000208_random] [wrapperSignal] wrapperStart
+[2025-09-19T18:49:42.359384Z] [ss620a.cs.cityu.edu.hk] [2880520_1] [pyflowTaskWrapper:getChromDepth_sample000_estimateChromDepth_040_chr17_gl000206_random_to_042_chr19_gl000208_random] [wrapperSignal] taskStart
+[2025-09-19T18:49:42.406352Z] [ss620a.cs.cityu.edu.hk] [2880520_1] [pyflowTaskWrapper:getChromDepth_sample000_estimateChromDepth_040_chr17_gl000206_random_to_042_chr19_gl000208_random] [wrapperSignal] taskExitCode 0
+[2025-09-19T18:49:42.466605Z] [ss620a.cs.cityu.edu.hk] [2880520_1] [pyflowTaskWrapper:getChromDepth_sample000_estimateChromDepth_040_chr17_gl000206_random_to_042_chr19_gl000208_random] [wrapperSignal] taskElapsedSec 0

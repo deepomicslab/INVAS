@@ -1,15 +1,15 @@
 EdgeStatsReport
-SVGenTotalHours	0.0001h wall, 0.0001h user + 0.0000h system = 0.0001h CPU (120.00%)
-NonEdgeHours	0.0000h wall, 0.0000h user + 0.0000h system = 0.0000h CPU (112.50%)
+SVGenTotalHours	0.0001h wall, 0.0001h user + 0.0000h system = 0.0001h CPU (100.00%)
+NonEdgeHours	0.0000h wall, 0.0000h user + 0.0000h system = 0.0000h CPU (100.00%)
 
 [AllEdges]
-InputEdgeCount	3
+InputEdgeCount	1
 InputEdgeCandidatesPerEdge:
 0	0
-1	2
-2	1
+1	0
+2	0
 3	0
-4	0
+4	1
 5+	0
 CandidateCount	4
 ComplexCandidateCount	2
@@ -24,8 +24,8 @@ JunctionCount	4
 ComplexJunctionCount	2
 BreaksPerJunction:
 0	0
-1	2
-2	1
+1	4
+2	0
 3+	0
 TotalAssemblyCandidates	2
 TotalSpanningAssemblyCandidates	2
@@ -36,32 +36,32 @@ AssemblyCandidatesPerJunction:
 3	0
 4	0
 5+	0
-totalHours	0.0000h wall, 0.0000h user + 0.0000h system = 0.0000h CPU (125.00%)
-totalSecsPerEdge	0.0400s wall, 0.0500s user + 0.0000s system = 0.0500s CPU (125.00%)
-totalSecsPerCand	0.0300s wall, 0.0375s user + 0.0000s system = 0.0375s CPU (125.00%)
-candiHours	0.0000h wall, 0.0000h user + 0.0000h system = 0.0000h CPU (100.00%)
-candiSecsPerEdge	0.0067s wall, 0.0067s user + 0.0000s system = 0.0067s CPU (100.00%)
-candiSecsPerCand	0.0050s wall, 0.0050s user + 0.0000s system = 0.0050s CPU (100.00%)
-assemHours	0.0000h wall, 0.0000h user + 0.0000h system = 0.0000h CPU (160.00%)
-assemSecsPerEdge	0.0167s wall, 0.0267s user + 0.0000s system = 0.0267s CPU (160.00%)
-assemSecsPerCand	0.0125s wall, 0.0200s user + 0.0000s system = 0.0200s CPU (160.00%)
-scoreHours	0.0000h wall, 0.0000h user + 0.0000h system = 0.0000h CPU (100.00%)
-scoreSecsPerEdge	0.0167s wall, 0.0167s user + 0.0000s system = 0.0167s CPU (100.00%)
-scoreSecsPerCand	0.0125s wall, 0.0125s user + 0.0000s system = 0.0125s CPU (100.00%)
-nocatHours	-0.0000h wall, -0.0000h user + 0.0000h system = -0.0000h CPU (200.00%)
-nocatSecsPerEdge	-0.0000s wall, -0.0000s user + 0.0000s system = -0.0000s CPU (200.00%)
-nocatSecsPerCand	-0.0000s wall, -0.0000s user + 0.0000s system = -0.0000s CPU (200.00%)
+totalHours	0.0000h wall, 0.0000h user + 0.0000h system = 0.0000h CPU (100.00%)
+totalSecsPerEdge	0.1400s wall, 0.1300s user + 0.0100s system = 0.1400s CPU (100.00%)
+totalSecsPerCand	0.0350s wall, 0.0325s user + 0.0025s system = 0.0350s CPU (100.00%)
+candiHours	0.0000h wall, 0.0000h user + 0.0000h system = 0.0000h CPU (-nan%)
+candiSecsPerEdge	0.0000s wall, 0.0000s user + 0.0000s system = 0.0000s CPU (-nan%)
+candiSecsPerCand	0.0000s wall, 0.0000s user + 0.0000s system = 0.0000s CPU (-nan%)
+assemHours	0.0000h wall, 0.0000h user + 0.0000h system = 0.0000h CPU (77.78%)
+assemSecsPerEdge	0.0900s wall, 0.0700s user + 0.0000s system = 0.0700s CPU (77.78%)
+assemSecsPerCand	0.0225s wall, 0.0175s user + 0.0000s system = 0.0175s CPU (77.78%)
+scoreHours	0.0000h wall, 0.0000h user + 0.0000h system = 0.0000h CPU (140.00%)
+scoreSecsPerEdge	0.0500s wall, 0.0600s user + 0.0100s system = 0.0700s CPU (140.00%)
+scoreSecsPerCand	0.0125s wall, 0.0150s user + 0.0025s system = 0.0175s CPU (140.00%)
+nocatHours	0.0000h wall, 0.0000h user + 0.0000h system = 0.0000h CPU (-nan%)
+nocatSecsPerEdge	0.0000s wall, 0.0000s user + 0.0000s system = 0.0000s CPU (-nan%)
+nocatSecsPerCand	0.0000s wall, 0.0000s user + 0.0000s system = 0.0000s CPU (-nan%)
 
 [RemoteEdges]
-InputEdgeCount	1
+InputEdgeCount	0
 InputEdgeCandidatesPerEdge:
 0	0
 1	0
-2	1
+2	0
 3	0
 4	0
 5+	0
-CandidateCount	2
+CandidateCount	0
 ComplexCandidateCount	0
 EdgeFilter	0
 SemiMappedFilter	0
@@ -70,48 +70,48 @@ ComplexLowSignalFilter	0
 UnmatchedReadPairFilter	0
 SpanningComplexCandidateFiltered	0
 JunctionAssemblyOverlapSkipped	0
-JunctionCount	2
+JunctionCount	0
 ComplexJunctionCount	0
 BreaksPerJunction:
 0	0
 1	0
-2	1
+2	0
 3+	0
-TotalAssemblyCandidates	2
-TotalSpanningAssemblyCandidates	2
+TotalAssemblyCandidates	0
+TotalSpanningAssemblyCandidates	0
 AssemblyCandidatesPerJunction:
 0	0
-1	2
+1	0
 2	0
 3	0
 4	0
 5+	0
-totalHours	0.0000h wall, 0.0000h user + 0.0000h system = 0.0000h CPU (122.22%)
-totalSecsPerEdge	0.0900s wall, 0.1100s user + 0.0000s system = 0.1100s CPU (122.22%)
-totalSecsPerCand	0.0450s wall, 0.0550s user + 0.0000s system = 0.0550s CPU (122.22%)
-candiHours	0.0000h wall, 0.0000h user + 0.0000h system = 0.0000h CPU (100.00%)
-candiSecsPerEdge	0.0100s wall, 0.0100s user + 0.0000s system = 0.0100s CPU (100.00%)
-candiSecsPerCand	0.0050s wall, 0.0050s user + 0.0000s system = 0.0050s CPU (100.00%)
-assemHours	0.0000h wall, 0.0000h user + 0.0000h system = 0.0000h CPU (166.67%)
-assemSecsPerEdge	0.0300s wall, 0.0500s user + 0.0000s system = 0.0500s CPU (166.67%)
-assemSecsPerCand	0.0150s wall, 0.0250s user + 0.0000s system = 0.0250s CPU (166.67%)
-scoreHours	0.0000h wall, 0.0000h user + 0.0000h system = 0.0000h CPU (100.00%)
-scoreSecsPerEdge	0.0500s wall, 0.0500s user + 0.0000s system = 0.0500s CPU (100.00%)
-scoreSecsPerCand	0.0250s wall, 0.0250s user + 0.0000s system = 0.0250s CPU (100.00%)
-nocatHours	0.0000h wall, -0.0000h user + 0.0000h system = -0.0000h CPU (-inf%)
-nocatSecsPerEdge	0.0000s wall, -0.0000s user + 0.0000s system = -0.0000s CPU (-inf%)
-nocatSecsPerCand	0.0000s wall, -0.0000s user + 0.0000s system = -0.0000s CPU (-inf%)
+totalHours	0.0000h wall, 0.0000h user + 0.0000h system = 0.0000h CPU (-nan%)
+totalSecsPerEdge	0.0000s wall, 0.0000s user + 0.0000s system = 0.0000s CPU (-nan%)
+totalSecsPerCand	0.0000s wall, 0.0000s user + 0.0000s system = 0.0000s CPU (-nan%)
+candiHours	0.0000h wall, 0.0000h user + 0.0000h system = 0.0000h CPU (-nan%)
+candiSecsPerEdge	0.0000s wall, 0.0000s user + 0.0000s system = 0.0000s CPU (-nan%)
+candiSecsPerCand	0.0000s wall, 0.0000s user + 0.0000s system = 0.0000s CPU (-nan%)
+assemHours	0.0000h wall, 0.0000h user + 0.0000h system = 0.0000h CPU (-nan%)
+assemSecsPerEdge	0.0000s wall, 0.0000s user + 0.0000s system = 0.0000s CPU (-nan%)
+assemSecsPerCand	0.0000s wall, 0.0000s user + 0.0000s system = 0.0000s CPU (-nan%)
+scoreHours	0.0000h wall, 0.0000h user + 0.0000h system = 0.0000h CPU (-nan%)
+scoreSecsPerEdge	0.0000s wall, 0.0000s user + 0.0000s system = 0.0000s CPU (-nan%)
+scoreSecsPerCand	0.0000s wall, 0.0000s user + 0.0000s system = 0.0000s CPU (-nan%)
+nocatHours	0.0000h wall, 0.0000h user + 0.0000h system = 0.0000h CPU (-nan%)
+nocatSecsPerEdge	0.0000s wall, 0.0000s user + 0.0000s system = 0.0000s CPU (-nan%)
+nocatSecsPerCand	0.0000s wall, 0.0000s user + 0.0000s system = 0.0000s CPU (-nan%)
 
 [SelfEdges]
-InputEdgeCount	2
+InputEdgeCount	1
 InputEdgeCandidatesPerEdge:
 0	0
-1	2
+1	0
 2	0
 3	0
-4	0
+4	1
 5+	0
-CandidateCount	2
+CandidateCount	4
 ComplexCandidateCount	2
 EdgeFilter	0
 SemiMappedFilter	0
@@ -120,34 +120,34 @@ ComplexLowSignalFilter	0
 UnmatchedReadPairFilter	0
 SpanningComplexCandidateFiltered	0
 JunctionAssemblyOverlapSkipped	0
-JunctionCount	2
+JunctionCount	4
 ComplexJunctionCount	2
 BreaksPerJunction:
 0	0
-1	2
+1	4
 2	0
 3+	0
-TotalAssemblyCandidates	0
-TotalSpanningAssemblyCandidates	0
+TotalAssemblyCandidates	2
+TotalSpanningAssemblyCandidates	2
 AssemblyCandidatesPerJunction:
 0	2
-1	0
+1	2
 2	0
 3	0
 4	0
 5+	0
-totalHours	0.0000h wall, 0.0000h user + 0.0000h system = 0.0000h CPU (133.33%)
-totalSecsPerEdge	0.0150s wall, 0.0200s user + 0.0000s system = 0.0200s CPU (133.33%)
-totalSecsPerCand	0.0150s wall, 0.0200s user + 0.0000s system = 0.0200s CPU (133.33%)
-candiHours	0.0000h wall, 0.0000h user + 0.0000h system = 0.0000h CPU (100.00%)
-candiSecsPerEdge	0.0050s wall, 0.0050s user + 0.0000s system = 0.0050s CPU (100.00%)
-candiSecsPerCand	0.0050s wall, 0.0050s user + 0.0000s system = 0.0050s CPU (100.00%)
-assemHours	0.0000h wall, 0.0000h user + 0.0000h system = 0.0000h CPU (150.00%)
-assemSecsPerEdge	0.0100s wall, 0.0150s user + 0.0000s system = 0.0150s CPU (150.00%)
-assemSecsPerCand	0.0100s wall, 0.0150s user + 0.0000s system = 0.0150s CPU (150.00%)
-scoreHours	0.0000h wall, 0.0000h user + 0.0000h system = 0.0000h CPU (-nan%)
-scoreSecsPerEdge	0.0000s wall, 0.0000s user + 0.0000s system = 0.0000s CPU (-nan%)
-scoreSecsPerCand	0.0000s wall, 0.0000s user + 0.0000s system = 0.0000s CPU (-nan%)
+totalHours	0.0000h wall, 0.0000h user + 0.0000h system = 0.0000h CPU (100.00%)
+totalSecsPerEdge	0.1400s wall, 0.1300s user + 0.0100s system = 0.1400s CPU (100.00%)
+totalSecsPerCand	0.0350s wall, 0.0325s user + 0.0025s system = 0.0350s CPU (100.00%)
+candiHours	0.0000h wall, 0.0000h user + 0.0000h system = 0.0000h CPU (-nan%)
+candiSecsPerEdge	0.0000s wall, 0.0000s user + 0.0000s system = 0.0000s CPU (-nan%)
+candiSecsPerCand	0.0000s wall, 0.0000s user + 0.0000s system = 0.0000s CPU (-nan%)
+assemHours	0.0000h wall, 0.0000h user + 0.0000h system = 0.0000h CPU (77.78%)
+assemSecsPerEdge	0.0900s wall, 0.0700s user + 0.0000s system = 0.0700s CPU (77.78%)
+assemSecsPerCand	0.0225s wall, 0.0175s user + 0.0000s system = 0.0175s CPU (77.78%)
+scoreHours	0.0000h wall, 0.0000h user + 0.0000h system = 0.0000h CPU (140.00%)
+scoreSecsPerEdge	0.0500s wall, 0.0600s user + 0.0100s system = 0.0700s CPU (140.00%)
+scoreSecsPerCand	0.0125s wall, 0.0150s user + 0.0025s system = 0.0175s CPU (140.00%)
 nocatHours	0.0000h wall, 0.0000h user + 0.0000h system = 0.0000h CPU (-nan%)
 nocatSecsPerEdge	0.0000s wall, 0.0000s user + 0.0000s system = 0.0000s CPU (-nan%)
 nocatSecsPerCand	0.0000s wall, 0.0000s user + 0.0000s system = 0.0000s CPU (-nan%)

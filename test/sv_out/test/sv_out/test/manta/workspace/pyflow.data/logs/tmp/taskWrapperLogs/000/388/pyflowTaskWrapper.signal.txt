@@ -1,4 +1,4 @@
-[2025-09-19T02:56:09.356856Z] [ss620a.cs.cityu.edu.hk] [140457_1] [pyflowTaskWrapper:fixVcfHeader_sortDiploidSV] [wrapperSignal] wrapperStart
-[2025-09-19T02:56:09.423361Z] [ss620a.cs.cityu.edu.hk] [140457_1] [pyflowTaskWrapper:fixVcfHeader_sortDiploidSV] [wrapperSignal] taskStart
-[2025-09-19T02:56:09.490053Z] [ss620a.cs.cityu.edu.hk] [140457_1] [pyflowTaskWrapper:fixVcfHeader_sortDiploidSV] [wrapperSignal] taskExitCode 0
-[2025-09-19T02:56:09.551753Z] [ss620a.cs.cityu.edu.hk] [140457_1] [pyflowTaskWrapper:fixVcfHeader_sortDiploidSV] [wrapperSignal] taskElapsedSec 0
+[2025-09-19T18:53:18.877553Z] [ss620a.cs.cityu.edu.hk] [2880520_1] [pyflowTaskWrapper:fixVcfHeader_sortDiploidSV] [wrapperSignal] wrapperStart
+[2025-09-19T18:53:18.928623Z] [ss620a.cs.cityu.edu.hk] [2880520_1] [pyflowTaskWrapper:fixVcfHeader_sortDiploidSV] [wrapperSignal] taskStart
+[2025-09-19T18:53:19.028717Z] [ss620a.cs.cityu.edu.hk] [2880520_1] [pyflowTaskWrapper:fixVcfHeader_sortDiploidSV] [wrapperSignal] taskExitCode 0
+[2025-09-19T18:53:19.127978Z] [ss620a.cs.cityu.edu.hk] [2880520_1] [pyflowTaskWrapper:fixVcfHeader_sortDiploidSV] [wrapperSignal] taskElapsedSec 0

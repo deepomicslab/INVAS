@@ -3,7 +3,7 @@
 #SBATCH --cpus-per-task=8
 #SBATCH --ntasks=1
 #SBATCH --output=log.align_rg.log
-#SBATCH --mem=2G
+#SBATCH --mem=10G
 #SBATCH --time=14-00:00:00
 set -euo pipefail
 

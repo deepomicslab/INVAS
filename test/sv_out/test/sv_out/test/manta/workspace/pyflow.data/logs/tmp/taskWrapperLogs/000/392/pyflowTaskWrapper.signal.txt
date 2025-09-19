@@ -1,4 +1,4 @@
-[2025-09-19T02:56:11.156725Z] [ss620a.cs.cityu.edu.hk] [140457_1] [pyflowTaskWrapper:extractSmallIndels] [wrapperSignal] wrapperStart
-[2025-09-19T02:56:11.241809Z] [ss620a.cs.cityu.edu.hk] [140457_1] [pyflowTaskWrapper:extractSmallIndels] [wrapperSignal] taskStart
-[2025-09-19T02:56:11.403399Z] [ss620a.cs.cityu.edu.hk] [140457_1] [pyflowTaskWrapper:extractSmallIndels] [wrapperSignal] taskExitCode 0
-[2025-09-19T02:56:11.461024Z] [ss620a.cs.cityu.edu.hk] [140457_1] [pyflowTaskWrapper:extractSmallIndels] [wrapperSignal] taskElapsedSec 0
+[2025-09-19T18:53:21.247756Z] [ss620a.cs.cityu.edu.hk] [2880520_1] [pyflowTaskWrapper:extractSmallIndels] [wrapperSignal] wrapperStart
+[2025-09-19T18:53:21.336716Z] [ss620a.cs.cityu.edu.hk] [2880520_1] [pyflowTaskWrapper:extractSmallIndels] [wrapperSignal] taskStart
+[2025-09-19T18:53:21.437970Z] [ss620a.cs.cityu.edu.hk] [2880520_1] [pyflowTaskWrapper:extractSmallIndels] [wrapperSignal] taskExitCode 0
+[2025-09-19T18:53:21.528927Z] [ss620a.cs.cityu.edu.hk] [2880520_1] [pyflowTaskWrapper:extractSmallIndels] [wrapperSignal] taskElapsedSec 0

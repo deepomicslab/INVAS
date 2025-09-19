@@ -10,7 +10,6 @@ db/
 test/pacbio/output/
 nohup.out
 # C extensions
-*.so
 evaluation/cyp_results/figures
 
 # Distribution / packaging
