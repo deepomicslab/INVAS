@@ -1,0 +1,26 @@
+(dp0
+S'isShellCmd'
+p1
+I01
+sS'cmd'
+p2
+S'"/data6/wangxuedong/invas_nc/invas_data_prep/bin/python" "/data6/wangxuedong/invas_nc/invas_data_prep/libexec/sortVcf.py" -f "/data6/wangxuedong/invas_nc/INVAS/test/sv_out/test/sv_out/test/manta/workspace/svHyGen/list.sortCandidateSV.txt" -a | "/data6/wangxuedong/invas_nc/invas_data_prep/libexec/bgzip" -c > "/data6/wangxuedong/invas_nc/INVAS/test/sv_out/test/sv_out/test/manta/results/variants/candidateSV.vcf.gz"'
+p3
+sS'errFile'
+p4
+S'/data6/wangxuedong/invas_nc/INVAS/test/sv_out/test/sv_out/test/manta/workspace/pyflow.data/logs/pyflow_tasks_stderr_log.txt'
+p5
+sS'outFile'
+p6
+S'/data6/wangxuedong/invas_nc/INVAS/test/sv_out/test/sv_out/test/manta/workspace/pyflow.data/logs/pyflow_tasks_stdout_log.txt'
+p7
+sS'env'
+p8
+NsS'nCores'
+p9
+I1
+sS'cwd'
+p10
+S''
+p11
+s.

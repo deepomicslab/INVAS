@@ -1,0 +1,4 @@
+[2025-09-19T02:56:11.641170Z] [ss620a.cs.cityu.edu.hk] [140457_1] [pyflowTaskWrapper:extractSmallIndels_tabix] [wrapperSignal] wrapperStart
+[2025-09-19T02:56:11.693352Z] [ss620a.cs.cityu.edu.hk] [140457_1] [pyflowTaskWrapper:extractSmallIndels_tabix] [wrapperSignal] taskStart
+[2025-09-19T02:56:11.761266Z] [ss620a.cs.cityu.edu.hk] [140457_1] [pyflowTaskWrapper:extractSmallIndels_tabix] [wrapperSignal] taskExitCode 0
+[2025-09-19T02:56:11.819316Z] [ss620a.cs.cityu.edu.hk] [140457_1] [pyflowTaskWrapper:extractSmallIndels_tabix] [wrapperSignal] taskElapsedSec 0

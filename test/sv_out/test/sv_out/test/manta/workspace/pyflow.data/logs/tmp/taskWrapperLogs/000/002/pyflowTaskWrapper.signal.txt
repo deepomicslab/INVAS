@@ -1,0 +1,4 @@
+[2025-09-19T02:53:39.328871Z] [ss620a.cs.cityu.edu.hk] [140457_1] [pyflowTaskWrapper:getAlignmentStats_mergeStats] [wrapperSignal] wrapperStart
+[2025-09-19T02:53:39.422147Z] [ss620a.cs.cityu.edu.hk] [140457_1] [pyflowTaskWrapper:getAlignmentStats_mergeStats] [wrapperSignal] taskStart
+[2025-09-19T02:53:39.634966Z] [ss620a.cs.cityu.edu.hk] [140457_1] [pyflowTaskWrapper:getAlignmentStats_mergeStats] [wrapperSignal] taskExitCode 0
+[2025-09-19T02:53:39.766646Z] [ss620a.cs.cityu.edu.hk] [140457_1] [pyflowTaskWrapper:getAlignmentStats_mergeStats] [wrapperSignal] taskElapsedSec 0

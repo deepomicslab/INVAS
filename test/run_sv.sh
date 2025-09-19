@@ -5,11 +5,11 @@ sample_name="test"
 mkdir -p sv_out/$sample_name
 threads=2
 
-input_wgs_bam="/data6/wangxuedong/invas_nc/WGS_TEST/ICC070015-T_focus_sorted.bam"
+input_wgs_bam="/data6/wangxuedong/invas_nc/INVAS/test/demo/DNA/inv_wgs.hg19.bam"
 # Run SV detection
 bash ../scripts/full_pipe/preprocess/process_sv_common.sh -s $sample_name \
     -i $input_wgs_bam \
     -o sv_out/$sample_name \
     -r $reference_genome \
     -t $threads \
-    -c lumpy,delly,manta,svaba
+    -c svaba

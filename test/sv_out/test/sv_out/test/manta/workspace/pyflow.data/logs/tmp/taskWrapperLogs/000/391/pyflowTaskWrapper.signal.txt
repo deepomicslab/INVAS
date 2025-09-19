@@ -1,0 +1,4 @@
+[2025-09-19T02:56:10.932991Z] [ss620a.cs.cityu.edu.hk] [140457_1] [pyflowTaskWrapper:tabix_sortDiploidSV] [wrapperSignal] wrapperStart
+[2025-09-19T02:56:11.003118Z] [ss620a.cs.cityu.edu.hk] [140457_1] [pyflowTaskWrapper:tabix_sortDiploidSV] [wrapperSignal] taskStart
+[2025-09-19T02:56:11.086138Z] [ss620a.cs.cityu.edu.hk] [140457_1] [pyflowTaskWrapper:tabix_sortDiploidSV] [wrapperSignal] taskExitCode 0
+[2025-09-19T02:56:11.234109Z] [ss620a.cs.cityu.edu.hk] [140457_1] [pyflowTaskWrapper:tabix_sortDiploidSV] [wrapperSignal] taskElapsedSec 0

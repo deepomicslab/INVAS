@@ -1,0 +1,22 @@
+===== Structural Variant Detection Summary =====
+Sample: test
+Analysis Date: 2025-09-19 10:56:15
+Input BAM: /data6/wangxuedong/invas_nc/INVAS/test/demo/DNA/inv_wgs.hg19.bam
+Reference: /data6/wangxuedong/invas_nc/wgs_ref/hg19.fa
+Threads: 2
+Callers: manta
+
+===== Results Overview =====
+
+Total variants detected: 0
+
+===== Output Files =====
+./sv_out/test/delly/test.delly.vcf
+./sv_out/test/lumpy/test.lumpy.genotyped.vcf
+./sv_out/test/lumpy/test.lumpy.vcf
+./sv_out/test/manta/results/variants/candidateSmallIndels.vcf.gz
+./sv_out/test/manta/results/variants/candidateSV.vcf.gz
+./sv_out/test/manta/results/variants/diploidSV.vcf.gz
+./sv_out/test/manta/test.manta.invfmt.vcf
+./sv_out/test/manta/workspace/svHyGen/candidateSV.0000.vcf
+./sv_out/test/manta/workspace/svHyGen/diploidSV.0000.vcf

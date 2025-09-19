@@ -1,0 +1,4 @@
+[2025-09-19T02:53:49.828455Z] [ss620a.cs.cityu.edu.hk] [140457_1] [pyflowTaskWrapper:summarizeStats] [wrapperSignal] wrapperStart
+[2025-09-19T02:53:49.879146Z] [ss620a.cs.cityu.edu.hk] [140457_1] [pyflowTaskWrapper:summarizeStats] [wrapperSignal] taskStart
+[2025-09-19T02:53:50.051080Z] [ss620a.cs.cityu.edu.hk] [140457_1] [pyflowTaskWrapper:summarizeStats] [wrapperSignal] taskExitCode 0
+[2025-09-19T02:53:50.148386Z] [ss620a.cs.cityu.edu.hk] [140457_1] [pyflowTaskWrapper:summarizeStats] [wrapperSignal] taskElapsedSec 0

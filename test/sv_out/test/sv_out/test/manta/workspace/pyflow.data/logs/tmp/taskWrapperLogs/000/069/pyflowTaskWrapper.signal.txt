@@ -1,0 +1,4 @@
+[2025-09-19T02:53:52.489359Z] [ss620a.cs.cityu.edu.hk] [140457_1] [pyflowTaskWrapper:makeGraphTmpDir] [wrapperSignal] wrapperStart
+[2025-09-19T02:53:52.561812Z] [ss620a.cs.cityu.edu.hk] [140457_1] [pyflowTaskWrapper:makeGraphTmpDir] [wrapperSignal] taskStart
+[2025-09-19T02:53:52.622074Z] [ss620a.cs.cityu.edu.hk] [140457_1] [pyflowTaskWrapper:makeGraphTmpDir] [wrapperSignal] taskExitCode 0
+[2025-09-19T02:53:52.707713Z] [ss620a.cs.cityu.edu.hk] [140457_1] [pyflowTaskWrapper:makeGraphTmpDir] [wrapperSignal] taskElapsedSec 0

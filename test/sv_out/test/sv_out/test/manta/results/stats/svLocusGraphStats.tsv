@@ -1,0 +1,84 @@
+GraphBuildTime	0.0250h wall, 0.0225h user + 0.0010h system = 0.0235h CPU (93.92%)
+GraphMergeTime	0.0000h wall, 0.0000h user + 0.0000h system = 0.0000h CPU (100.00%)
+disjointSubgraphs	1
+nodes	2
+directedEdges	4
+selfEdges	2
+totalGraphEvidence	945
+totalCleaned	0
+highestSearchCount	6
+isMaxSearchCount	0
+highestSearchDensity	0.00530973
+isMaxSearchDensity	0
+
+[Sample0]
+Source	/data6/wangxuedong/invas_nc/INVAS/test/demo/DNA/inv_wgs.hg19.bam
+MinMapqFiltered	0	0.0000
+NotFiltered	13402	1.0000
+NotFilteredAndIgnored	13215	0.9860
+NotFilteredAndAnomalousPair	152	0.0113
+NotFilteredAndAnomalousPairRemotes	152	0.0113
+NotFilteredAndSplitRead	73	0.0054
+NotFilteredAndSplitReadInAnomalousPair	39	0.0029
+NotFilteredAndSplitReadSupplementarySegments	73	N/A
+NotFilteredAndLargeIndel	0	0.0000
+NotFilteredAndSemiAligned	17	0.0013
+EvidenceType_pair	0	0.0000
+EvidenceType_local_pair	152	0.4825
+EvidenceType_cigar	0	0.0000
+EvidenceType_softclip	0	0.0000
+EvidenceType_semialign	17	0.0540
+EvidenceType_shadow	0	0.0000
+EvidenceType_split_align	146	0.4635
+EvidenceType_unknown	0	0.0000
+ClosePairs	0
+
+NodeRegionSizequantile:
+0.25	356
+0.5	356
+0.75	376
+0.9	376
+0.95	376
+0.99	376
+NodeEdgeCount:
+0	0
+1	0
+2	2
+3	0
+4	0
+5	0
+6	0
+7	0
+8	0
+9+	0
+NodeObservationCount:
+0	0
+1	0
+2	0
+3	0
+4	0
+5	0
+6	0
+7	0
+8	0
+9	0
+10	0
+11	0
+12	0
+13	0
+14	0
+15	0
+16	0
+17	0
+18	0
+19	0
+20	0
+21	0
+22	0
+23	0
+24	0
+25	0
+26	0
+27	0
+28	0
+29+	2

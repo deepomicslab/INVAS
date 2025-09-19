@@ -1,0 +1,4 @@
+[2025-09-19T02:56:09.297034Z] [ss620a.cs.cityu.edu.hk] [140457_1] [pyflowTaskWrapper:fixVcfHeader_sortCandidateSV] [wrapperSignal] wrapperStart
+[2025-09-19T02:56:09.350690Z] [ss620a.cs.cityu.edu.hk] [140457_1] [pyflowTaskWrapper:fixVcfHeader_sortCandidateSV] [wrapperSignal] taskStart
+[2025-09-19T02:56:09.445296Z] [ss620a.cs.cityu.edu.hk] [140457_1] [pyflowTaskWrapper:fixVcfHeader_sortCandidateSV] [wrapperSignal] taskExitCode 0
+[2025-09-19T02:56:09.484896Z] [ss620a.cs.cityu.edu.hk] [140457_1] [pyflowTaskWrapper:fixVcfHeader_sortCandidateSV] [wrapperSignal] taskElapsedSec 0

@@ -1,0 +1,4 @@
+[2025-09-19T02:55:00.428767Z] [ss620a.cs.cityu.edu.hk] [140457_1] [pyflowTaskWrapper:makeLocusGraph_chromId_020_chr21_0003] [wrapperSignal] wrapperStart
+[2025-09-19T02:55:00.460505Z] [ss620a.cs.cityu.edu.hk] [140457_1] [pyflowTaskWrapper:makeLocusGraph_chromId_020_chr21_0003] [wrapperSignal] taskStart
+[2025-09-19T02:55:01.029117Z] [ss620a.cs.cityu.edu.hk] [140457_1] [pyflowTaskWrapper:makeLocusGraph_chromId_020_chr21_0003] [wrapperSignal] taskExitCode 0
+[2025-09-19T02:55:01.081789Z] [ss620a.cs.cityu.edu.hk] [140457_1] [pyflowTaskWrapper:makeLocusGraph_chromId_020_chr21_0003] [wrapperSignal] taskElapsedSec 0

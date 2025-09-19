@@ -1,0 +1,18 @@
+group:	/data6/wangxuedong/invas_nc/INVAS/test/demo/DNA/inv_wgs.hg19.bam
+fragment length observations:	5952
+fragment length quantiles:
+0.01	231
+0.05	269
+0.1	288
+0.25	316
+0.5	351
+0.75	383
+0.9	413
+0.95	432
+0.99	464
+Total sampled reads:	13475
+Total sampled paired reads:	13475
+Total sampled unpaired reads:	0
+Total sampled paired reads with low MAPQ:	0
+Total sampled high-confidence read pairs passing all filters:	5978
+

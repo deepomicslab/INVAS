@@ -1,0 +1,1 @@
+/data6/wangxuedong/invas_nc/INVAS/test/sv_out/test/sv_out/test/manta/workspace/svHyGen/candidateSV.0000.vcf

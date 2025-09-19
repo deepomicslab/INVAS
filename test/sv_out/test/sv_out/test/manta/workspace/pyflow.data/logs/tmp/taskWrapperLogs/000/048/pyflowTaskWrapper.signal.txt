@@ -1,0 +1,4 @@
+[2025-09-19T02:53:31.234248Z] [ss620a.cs.cityu.edu.hk] [140457_1] [pyflowTaskWrapper:getChromDepth_sample000_estimateChromDepth_050_chrUn_gl000216] [wrapperSignal] wrapperStart
+[2025-09-19T02:53:31.283405Z] [ss620a.cs.cityu.edu.hk] [140457_1] [pyflowTaskWrapper:getChromDepth_sample000_estimateChromDepth_050_chrUn_gl000216] [wrapperSignal] taskStart
+[2025-09-19T02:53:31.331911Z] [ss620a.cs.cityu.edu.hk] [140457_1] [pyflowTaskWrapper:getChromDepth_sample000_estimateChromDepth_050_chrUn_gl000216] [wrapperSignal] taskExitCode 0
+[2025-09-19T02:53:31.393991Z] [ss620a.cs.cityu.edu.hk] [140457_1] [pyflowTaskWrapper:getChromDepth_sample000_estimateChromDepth_050_chrUn_gl000216] [wrapperSignal] taskElapsedSec 0

@@ -1,0 +1,4 @@
+[2025-09-19T02:56:10.188770Z] [ss620a.cs.cityu.edu.hk] [140457_1] [pyflowTaskWrapper:sort_sortDiploidSV] [wrapperSignal] wrapperStart
+[2025-09-19T02:56:10.287922Z] [ss620a.cs.cityu.edu.hk] [140457_1] [pyflowTaskWrapper:sort_sortDiploidSV] [wrapperSignal] taskStart
+[2025-09-19T02:56:10.527490Z] [ss620a.cs.cityu.edu.hk] [140457_1] [pyflowTaskWrapper:sort_sortDiploidSV] [wrapperSignal] taskExitCode 0
+[2025-09-19T02:56:10.617667Z] [ss620a.cs.cityu.edu.hk] [140457_1] [pyflowTaskWrapper:sort_sortDiploidSV] [wrapperSignal] taskElapsedSec 0
