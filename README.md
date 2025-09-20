@@ -175,6 +175,27 @@ Each gene folder contains:
 - Both normal and inverted isoforms
 - Assembly quality metrics
 
+
+## Quick Start - Test Run
+
+Before running INVAS on your own data, we recommend testing the installation with the provided example scripts:
+
+```
+# Navigate to the test directory
+cd INVAS/test
+
+# Review the example scripts for different scenarios:
+ls -la *.sh
+
+# These test scripts demonstrate:
+# - Complete pipeline execution
+# - Parameter settings for different data types
+# - Output structure and interpretation
+```
+
+
+
+
 ## Example Usage
 
 A complete example workflow for processing sample "3-06PB4872":
