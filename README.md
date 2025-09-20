@@ -41,7 +41,26 @@ conda env create -f invas_prepare.yaml -n invas_data_prep
 # Assembly environment
 conda env create -f invas_assembly.yaml -n invas_assembly
 ```
-2.1. Compile INVAS core components:
+2.1.  Build SSW library:
+
+```
+# Clone SSW library repository
+git clone https://github.com/mengyao/Complete-Striped-Smith-Waterman-Library.git
+
+# Navigate to SSW src directory
+cd Complete-Striped-Smith-Waterman-Library/src
+
+# Compile SSW library
+make
+
+# Copy the compiled library to INVAS bin directory
+cp libssw.so ../../scripts/full_pipe/bin/
+
+# Return to INVAS main directory
+cd ../../
+```
+
+2.2. Compile INVAS core components:
 ```# Navigate to the build directory
 cd scripts/full_pipe/bin
 
