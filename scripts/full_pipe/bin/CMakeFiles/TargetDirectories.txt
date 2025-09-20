@@ -1,0 +1,3 @@
+/data6/wangxuedong/invas_nc/INVAS/scripts/full_pipe/bin/CMakeFiles/matching.dir
+/data6/wangxuedong/invas_nc/INVAS/scripts/full_pipe/bin/CMakeFiles/edit_cache.dir
+/data6/wangxuedong/invas_nc/INVAS/scripts/full_pipe/bin/CMakeFiles/rebuild_cache.dir
