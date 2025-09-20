@@ -41,7 +41,22 @@ conda env create -f invas_prepare.yaml -n invas_data_prep
 # Assembly environment
 conda env create -f invas_assembly.yaml -n invas_assembly
 ```
+2.1. Compile INVAS core components:
+```# Navigate to the build directory
+cd scripts/full_pipe/bin
 
+# Run CMake to configure the build
+cmake ../../../
+
+# Compile the source code
+make
+
+# Make all executables in bin directory executable
+chmod +x *
+
+# Return to the main directory
+cd ../../../ 
+```
 
 ## Workflow
 
