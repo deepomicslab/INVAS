@@ -417,6 +417,7 @@ def process_transcript(exons, ref_fasta, vcf_file, haplotype, tr_strand):
         print("Extracted sequence:", seq)
 
         # 如果该外显子在不同方向，则取反向互补
+        print("strand:", strand, "tr_strand:", tr_strand)
         if strand != tr_strand:
             seq = str(Seq(seq).reverse_complement())
 
@@ -428,6 +429,7 @@ def process_transcript(exons, ref_fasta, vcf_file, haplotype, tr_strand):
 
         # 拼接序列
         full_seq += seq
+        print("Current full_seq:", full_seq)
 
     return full_seq
 
@@ -583,7 +585,8 @@ def generate_seq(new_records, old_records, phased_vcf, ref, output_dir):
             out_normal_fa_hap1_f.write(f">{transcript_id}_hap1\n{full_hap1_normal_seq}\n")
             out_normal_fa_hap2_f.write(f">{transcript_id}_hap2\n{full_hap2_normal_seq}\n")
 
-    
+    print("new records")
+    print(new_records)
     for new_record_id, new_record in new_records.items():
         transcript_id = new_record_id
         exons = new_record["exons"]
@@ -599,17 +602,22 @@ def generate_seq(new_records, old_records, phased_vcf, ref, output_dir):
             hap2_seq=process_transcript(group, ref, phased_vcf, "2", tr_strand)
             full_hap1_seq+=hap1_seq
             full_hap2_seq+=hap2_seq
+            print("group:", group)
+            print("hap1_seq:", hap1_seq)
+            print("hap2_seq:", hap2_seq)
             if args.with_normal_haps:
                 hap1_normal_hap=process_normal_transcript(group, ref, phased_vcf, "1")
                 hap2_normal_hap=process_normal_transcript(group, ref, phased_vcf, "2")
                 full_hap1_normal_seq+=hap1_normal_hap
                 full_hap2_normal_seq+=hap2_normal_hap
-        if tr_strand == "-":
-            full_hap1_seq = str(Seq(full_hap1_seq).reverse_complement())
-            full_hap2_seq = str(Seq(full_hap2_seq).reverse_complement())
-            if args.with_normal_haps:
-                full_hap1_normal_seq = str(Seq(full_hap1_normal_seq).reverse_complement())
-                full_hap2_normal_seq = str(Seq(full_hap2_normal_seq).reverse_complement())
+        # if tr_strand == "-":
+        #     full_hap1_seq = str(Seq(full_hap1_seq).reverse_complement())
+        #     full_hap2_seq = str(Seq(full_hap2_seq).reverse_complement())
+        #     if args.with_normal_haps:
+        #         full_hap1_normal_seq = str(Seq(full_hap1_normal_seq).reverse_complement())
+        #         full_hap2_normal_seq = str(Seq(full_hap2_normal_seq).reverse_complement())
+        print("final_full_hap1_seq:", full_hap1_seq)
+        print("final_full_hap2_seq:", full_hap2_seq)
 
         out_fa_hap1_f.write(f">new_{transcript_id}_inv_hap1\n{full_hap1_seq}\n")
         out_fa_hap2_f.write(f">new_{transcript_id}_inv_hap2\n{full_hap2_seq}\n")
@@ -655,6 +663,8 @@ def main():
 
     # get new transcripts and updated, if inversion exons has the same matched transcripts, reverse the strand at same time
     new_records, old_records = assign_trf(matched_transcripts, transcripts)
+    print("new records:", new_records)
+    print("old records:", old_records)
     
     generate_seq(new_records, old_records, args.vcf, args.ref, args.output)
 

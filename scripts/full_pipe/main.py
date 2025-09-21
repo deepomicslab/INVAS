@@ -260,6 +260,8 @@ def process_single_gene(
         run_command(
             f"""python "{script_dir}"/generate_final_gtf.py --inversion_exons {final_inverson_exons} --vcf "{gene_dir}"/wgs.phased.vcf.gz --ref {ref_genome} -o "{gene_dir}"/haps -g {merged_gtf} -j {inv_junc_file} """
         )
+    # requantify expression
+    
 
 
 def main():

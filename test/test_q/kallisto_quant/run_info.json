@@ -1,0 +1,14 @@
+{
+	"n_targets": 3,
+	"n_bootstraps": 100,
+	"n_processed": 472,
+	"n_pseudoaligned": 366,
+	"n_unique": 15,
+	"p_pseudoaligned": 77.5,
+	"p_unique": 3.2,
+	"kallisto_version": "0.51.1",
+	"index_version": 13,
+	"k-mer length": 31,
+	"start_time": "Sun Sep 21 17:48:20 2025",
+	"call": "kallisto quant -i test_q/kallisto.idx -o test_q/kallisto_quant -t 1 --bootstrap-samples 100 test_q/reads_R1.fastq.gz test_q/reads_R2.fastq.gz"
+}

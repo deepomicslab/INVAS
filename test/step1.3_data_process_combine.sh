@@ -1,4 +1,11 @@
 #!/bin/bash
+#SBATCH --job-name='align_rg'
+#SBATCH --cpus-per-task=1
+#SBATCH --ntasks=1
+#SBATCH --output=log.rna.log
+#SBATCH --mem=10G
+#SBATCH --time=14-00:00:00
+# conda activate invas_assembly
 
 # Create output directory
 mkdir -p candidate_out

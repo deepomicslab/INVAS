@@ -411,6 +411,7 @@ process_unmapped_reads() {
         "$map" "$sample_outdir/hisat.unmap_remap_all.s.map.bam"
     samtools sort -@ "$THREADS" -O BAM -o "$sample_outdir/hisat.map_unmapremap.s.bam" \
         "$sample_outdir/hisat.map_unmapremap.bam"
+    samtools index -@ "$THREADS" "$sample_outdir/hisat.map_unmapremap.s.bam"
 }
 
 bwa_rescue_alignment() {

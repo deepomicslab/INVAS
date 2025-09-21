@@ -1,6 +1,6 @@
 ===== Analysis Information =====
 Sample: test
-Analysis Date: Sat 20 Sep 2025 02:57:30 AM HKT
+Analysis Date: Sun 21 Sep 2025 04:47:05 PM HKT
 SV Directory: sv_out/test/sv_out/test
 HISAT2 BAM: rna_out/test/hisat.map_unmapremap.s.bam
 BWA Unmap BAM: rna_out/test/still_unmap_bwa.s.bam
