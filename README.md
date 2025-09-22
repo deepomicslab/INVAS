@@ -79,7 +79,7 @@ cd ../../../
 
 ## Workflow
 
-The INVAS workflow consists of four main stages, with the first three focused on preliminary data preparation and the final stage being the core assembly via `main.py`.
+Before executing the INVAS core assembly module (`main.py`), three preprocessing steps are required to obtain informative reads for accurate inversion detection and transcript assembly.
 
 ### Step 1: RNA-Seq Data Processing (Preliminary)
 
