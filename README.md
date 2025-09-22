@@ -380,7 +380,6 @@ Common issues and solutions:
 
 If you use Invas in your research, please cite:
 ```
-[Your paper citation here]
 ```
 
 ## License
