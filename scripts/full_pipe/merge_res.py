@@ -3,30 +3,30 @@ from collections import defaultdict
 
 def parse_gtf(file_path, skip_header_lines=0):
     """
-    解析 GTF 文件，跳过头部行，返回每个 transcript 的完整信息（包括 transcript 和 exon 行）。
+    parse a GTF file and return a dictionary mapping transcript_id
     """
     transcripts = defaultdict(lambda: {"transcript_line": None, "exon_lines": []})
 
     with open(file_path, "r") as f:
         for line in f:
-            if line.startswith("#") or skip_header_lines > 0:  # 跳过 header
+            if line.startswith("#") or skip_header_lines > 0:  # skip header lines
                 skip_header_lines -= 1
                 continue
             
             fields = line.strip().split("\t")
             if len(fields) < 9:
-                continue  # 忽略无效行
+                continue  # ignore invalid lines
             
-            feature_type = fields[2]  # "transcript" 或 "exon"
+            feature_type = fields[2]  # "transcript" or "exon"
             attributes = fields[8]
-            
-            # 提取 transcript_id
+
+            # extract transcript_id
             transcript_id = extract_attribute(attributes, "transcript_id")
             print(transcript_id)
             if not transcript_id:
-                continue  # 如果没有 transcript_id，跳过该行
+                continue  # skip if no transcript_id found
             
-            # 根据 feature 类型存储
+            # store the line based on feature type
             if feature_type == "transcript":
                 transcripts[transcript_id]["transcript_line"] = line.strip().replace("StringTie", "Seqflow")
             elif feature_type == "exon":
@@ -36,7 +36,7 @@ def parse_gtf(file_path, skip_header_lines=0):
 
 def extract_attribute(attributes, key):
     """
-    从 GTF 的 attribute 字段中提取指定的 key（如 transcript_id）。
+    extract the specified key (e.g., transcript_id) from the attribute field of a GTF file.
     """
     for attr in attributes.split(";"):
         attr = attr.strip()
@@ -46,20 +46,20 @@ def extract_attribute(attributes, key):
 
 def merge_gtf(file1, file2, output_file, skip_header_file1=1, skip_header_file2=2):
     """
-    合并两个 GTF 文件，确保每个 transcript 的完整性（包括 transcript 和 exon）。
+    Merge two GTF files, ensuring the integrity of each transcript (including transcript and exon).
     """
-    # 解析两个 GTF 文件
+    # Parse the two GTF files
     transcripts1 = parse_gtf(file1, skip_header_lines=skip_header_file1)
     transcripts2 = parse_gtf(file2, skip_header_lines=skip_header_file2)
-    
-    # 合并数据
+
+    # Merge the data
     merged_transcripts = {}
 
-    # 先加入第一个文件的内容
+    # add the first file's content
     merged_transcripts.update(transcripts1)
 
     
-    # 再加入第二个文件的内容（覆盖第一个文件中重复的 transcript）
+    # add the second file's content, overwriting if transcript_id already exists
     merged_transcripts.update(transcripts2)
     print(merged_transcripts)
 
@@ -78,19 +78,19 @@ def merge_gtf(file1, file2, output_file, skip_header_file1=1, skip_header_file2=
         transcript_data["exon_lines"] = list(filter(None, transcript_data["exon_lines"]))
         
     
-    # 写入合并结果
+    # write to output file
     with open(output_file, "w") as out_f:
         for transcript_id, transcript_data in merged_transcripts.items():
-            # 写入 transcript 行
+            # write the transcript line first
             if transcript_data["transcript_line"]:
                 out_f.write(transcript_data["transcript_line"] + "\n")
-            # 写入对应的 exon 行
+            # write all associated exon lines
             for exon_line in transcript_data["exon_lines"]:
                 out_f.write(exon_line + "\n")
     
     print(f"Merged GTF file has been saved to: {output_file}")
 
-# 主函数
+# main function to handle command-line arguments
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Merge two GTF files and retain complete transcripts (transcript + exon lines).")
     parser.add_argument("file1", type=str, help="Path to the first GTF file (1-line header).")

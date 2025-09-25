@@ -46,19 +46,7 @@ for chr in {1..22} X; do
 
     echo "finished chr${chr}"
 
-    # awk 'BEGIN { FS="\t" } {
-    # split($1, a, "[:-]");
-    # split($2, b, "[:-]");
-    # split($3, c, "[:-]");
-    # printf("%s:%d-%d\t%s:%d-%d\t%s:%d-%d\n", a[1], a[2], a[3], a[1], b[2], b[3], a[1], c[2], c[3]);
-    # }' "$file_path" | while read -r inversion_region gene_region confident_region; do
-    #     # echo "Processing $coord1, $coord2, $coord3 with your_program..."
-    #     # 调用你的程序，这里用 echo 命令作为示例
-    #     # your_program "$coord1" "$coord2" "$coord3"
-    #     # 如果 your_program 是个脚本或程序，确保它在 PATH 中或使用完整路径
-    #     echo $inversion_region
-    # done
-
+  
 
 
  

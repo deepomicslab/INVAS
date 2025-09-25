@@ -5,58 +5,44 @@ import networkx as nx
 
 def get_overlap(interval1, interval2):
     """
-    返回两个区间的重叠部分。
-
-    参数:
-    interval1 -- 第一个区间，形式为(start1, end1)
-    interval2 -- 第二个区间，形式为(start2, end2)
-
-    返回:
-    一个元组表示的重叠区间(start, end)。如果没有重叠，返回None。
+    return the overlapping interval between two intervals.
     """
 
-    # 分别获取两个区间的起始和结束位置
+    # get the start and end of both intervals
     start1, end1 = interval1
     start2, end2 = interval2
 
-    # 计算重叠区间的起始和结束位置
+    # calculate the overlap
     overlap_start = max(start1, start2)
     overlap_end = min(end1, end2)
 
-    # 如果计算出的起始位置大于结束位置，则表示没有重叠
+    # if there is no overlap, return None
     if overlap_start >= overlap_end:
         return None
 
-    # 返回重叠区间
+    # return the overlapping interval
     return (overlap_start, overlap_end)
 
 def get_overlaps(interval1, interval_list, visited_invs):
     """
-    返回 interval1 和 interval_list 中任意区间的重叠部分。
-
-    参数:
-    interval1 -- 单一区间，形式为(start1, end1)
-    interval_list -- 区间列表，形式为[(start2, end2), ...]
-
-    返回:
-    一个元组表示的重叠区间(start, end)。如果没有重叠，返回None。
+    return the first overlapping interval between interval1 and a list of intervals.
     """
 
-    # 分别获取 interval1 的起始和结束位置
+    # get the start and end of interval1
     start1, end1 = interval1
 
-    # 遍历 interval_list 中的每个区间
+    # iterate over each interval in interval_list
     for start2, end2 in interval_list:
-        # 计算当前区间与 interval1 的重叠部分
+        # calculate the overlap between the current interval and interval1
         overlap_start = max(start1, start2)
         overlap_end = min(end1, end2)
 
-        # 如果计算出的起始位置小于结束位置，则存在重叠
+        # if there is an overlap, return the overlapping interval
         if overlap_start < overlap_end:
             visited_invs.append((start2, end2))
             return (overlap_start, overlap_end), visited_invs
 
-    # 如果所有区间都没有重叠，返回 None
+    # return None if no overlaps found
     return None, []
 
 def parse_gtf(gtf, inv_rgs):

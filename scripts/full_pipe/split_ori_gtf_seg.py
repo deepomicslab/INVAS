@@ -4,22 +4,13 @@ import argparse
 
 def load_intervals(interval_file):
     """
-    加载区间文件，跳过前两行和最后一行。
-    参数：
-        interval_file: str
-            区间文件的路径，格式为 'chrom start end'。
-    返回：
-        intervals: dict
-            按染色体分组的区间列表：
-            {
-                "chrom": [(start1, end1), (start2, end2), ...]
-            }
+    load intervals from a file, skipping the first two lines and the last line.
     """
     intervals = []
     with open(interval_file, 'r') as f:
         lines = f.readlines()
 
-    # 跳过前两行和最后一行
+    # skip the first two lines and the last line
     lines = lines[2:-1]
 
     for line in lines:
@@ -31,35 +22,27 @@ def load_intervals(interval_file):
 
 def split_exon_by_intervals(exon, intervals):
     """
-    根据区间分割外显子。
-    参数：
-        exon: tuple
-            外显子信息 (chrom, start, end, strand, attributes)。
-        intervals: list
-            当前染色体的区间列表 [(start1, end1), (start2, end2), ...]。
-    返回：
-        split_exons: list
-            分割后的外显子列表，每个元素是 (start, end)。
+    split a single exon by given intervals.
     """
     chrom, exon_start, exon_end, strand, attributes = exon
     split_exons = []
     current_start = exon_start
 
-    # 遍历区间并检查是否需要分割
+    # iterate over intervals and check if splitting is needed
     for interval_start, interval_end in sorted(intervals):
         if interval_start > exon_end:
-            break  # 后续区间不再与外显子重叠
+            break  # subsequent intervals do not overlap with exon
         if interval_end < current_start:
-            continue  # 当前区间在外显子之前
+            continue  # current interval is before exon
 
-        # 区间与外显子的重叠部分
+        # overlap detected, split the exon
         if interval_start <= exon_end and interval_end >= current_start:
             if current_start < interval_start:
-                split_exons.append((current_start, interval_start - 1))  # 前段
-            split_exons.append((max(current_start, interval_start), min(exon_end, interval_end)))  # 重叠段
+                split_exons.append((current_start, interval_start - 1))
+            split_exons.append((max(current_start, interval_start), min(exon_end, interval_end)))
             current_start = interval_end + 1
 
-    # 添加剩余部分
+    # add any remaining part of the exon
     if current_start <= exon_end:
         split_exons.append((current_start, exon_end))
 
@@ -68,28 +51,21 @@ def split_exon_by_intervals(exon, intervals):
 
 def process_gtf(gtf_file, intervals, output_file):
     """
-    处理 GTF 文件，将外显子按照区间分割。
-    参数：
-        gtf_file: str
-            原始 GTF 文件路径。
-        intervals: list
-            按染色体分组的区间列表。
-        output_file: str
-            分割后的 GTF 文件输出路径。
+    handle a GTF file, splitting exons based on intervals.
     """
     with open(gtf_file, 'r') as infile, open(output_file, 'w') as outfile:
         reader = csv.reader(infile, delimiter='\t')
         writer = csv.writer(outfile, delimiter='\t')
 
         for row in reader:
-            # 跳过注释行
+            # skip comment lines
             if row[0].startswith('#'):
                 writer.writerow(row)
                 continue
 
             chrom, source, feature, start, end, score, strand, frame, attributes = row
 
-            # 仅处理外显子信息
+            # handle non-exon features
             if feature != 'exon':
                 writer.writerow(row)
                 continue
@@ -98,10 +74,10 @@ def process_gtf(gtf_file, intervals, output_file):
             exon = (chrom, start, end, strand, attributes)
 
 
-            # 按染色体区间分割外显子
+            # split the exon by chromosome intervals
             split_exons = split_exon_by_intervals(exon, intervals)
 
-            # 写入分割后的外显子
+            # write the split exons
             for split_exon in split_exons:
                 chrom, split_start, split_end, strand, attributes = split_exon
                 writer.writerow([chrom, source, feature, split_start, split_end, score, strand, frame, attributes])
@@ -154,19 +130,19 @@ def process_gtf2(gtf_file, intervals, output_file):
 
 def main():
     """
-    主函数，解析命令行参数并运行处理逻辑。
+    main function to handle command-line arguments and execute the processing.
     """
-    parser = argparse.ArgumentParser(description="按照区间分割 GTF 文件中的外显子")
-    parser.add_argument("-g", "--gtf", required=True, help="输入 GTF 文件路径")
-    parser.add_argument("-i", "--intervals", required=True, help="区间文件路径")
-    parser.add_argument("-o", "--output", required=True, help="输出 GTF 文件路径")
+    parser = argparse.ArgumentParser(description="split exons in a GTF file based on given intervals.")
+    parser.add_argument("-g", "--gtf", required=True, help="input GTF file path")
+    parser.add_argument("-i", "--intervals", required=True, help="intervals file path")
+    parser.add_argument("-o", "--output", required=True, help="output GTF file path")
 
     args = parser.parse_args()
 
-    # 加载区间文件
+    # load intervals file
     intervals = load_intervals(args.intervals)
 
-    # 处理 GTF 文件
+    # process GTF file
     process_gtf2(args.gtf, intervals, args.output)
 
 

@@ -135,44 +135,22 @@ def parse_inv(inv_bed):
 
     return inv_rgs
 
-# def calculate_region_depth(bam, chrom, start, end):
-#     # 打开BAM文件
-#     # 初始化总深度为0
-#     total_depth = 0
-#     # 初始化覆盖的碱基数量为0
-#     covered_bases = 0
-    
-#     # 遍历指定区域的pileup列
-#     for pileupcolumn in bam.pileup(chrom, start, end, nofilter=True):
-#         # 确保pileup列在指定的区域内
-#         if pileupcolumn.reference_pos >= start and pileupcolumn.reference_pos < end:
-#             # 累加该位置的读段数量到总深度
-#             total_depth += pileupcolumn.nsegments
-#             # 增加覆盖的碱基数量
-#             covered_bases += 1
-    
-#     # 如果有覆盖的碱基，则计算平均深度
-#     if covered_bases > 0:
-#         average_depth = total_depth / covered_bases
-#     else:
-#         average_depth = 0
 
-#     return average_depth
 def calculate_region_depth(bam, chrom, start, end):
-    # 使用count_coverage方法获取指定区域的覆盖度信息
+    # use pysam to calculate the average depth of a region
     print(chrom, start, end)
     coverage = bam.count_coverage(chrom, start, end, quality_threshold=0)
     total_depth = 0
     covered_bases = 0
 
-    # coverage包含四个元素的元组，每个元素对应一个碱基（A, C, G, T）的覆盖度列表
-    for base_idx in range(4):  # 遍历每个碱基
-        for pos_depth in coverage[base_idx]:  # 遍历该碱基对应的覆盖度列表
-            total_depth += pos_depth  # 累加到总深度
+    # coverage is a tuple of 4 lists (A, C, G, T)
+    for base_idx in range(4):  # iterate over each base
+        for pos_depth in coverage[base_idx]:  # iterate over the coverage list for the base
+            total_depth += pos_depth  # accumulate to total depth
             if pos_depth > 0:
-                covered_bases += 1  # 如果该位置有覆盖，则增加覆盖的碱基数量
+                covered_bases += 1  # if the position is covered, increase the count of covered bases
 
-    # 如果有覆盖的碱基，则计算平均深度
+    # if covered_bases is 0, avoid division by zero
     if covered_bases > 0:
         average_depth = total_depth / covered_bases
     else:
@@ -427,7 +405,7 @@ def generate_normal_graph(gnodes, gtransfrag):
     # plt.show()
 
     sink_node = max(G.nodes)
-    # 获取直接连接到sink的所有节点（前驱节点）
+    # get all nodes connected to the sink node
     predecessors = list(G.predecessors(sink_node))
 
     print(f"The sink node is: {sink_node}")
@@ -597,21 +575,21 @@ def modify_last_exons(nodes_ab_status, last_exon_ids):
     return nodes_ab_status
       
 def merge_data(input_file_path, graphx):
-    # 使用defaultdict来存储合并的数据
+    # use the input transfrg file to merge the paths with same nodes
     all_nodes= []
     matrixIdx2seg={}
     transfrgs = defaultdict(float)
     strand = 0
-    # 读取输入文件
+    # read the input file
     with open(input_file_path, 'r') as infile:
         reader = csv.reader(infile, delimiter='\t')
         for idx, row in enumerate(reader):
             if idx == 0:
-                continue  # 跳过格式不正确的行
+                continue  # skip header
             paths_str = row[1].strip(',')
             paths = paths_str.split(',')
             strand = row[0].strip()
-            value = float(row[2].strip())  # 第三列转换为浮点数
+            value = float(row[2].strip())  # convert the third column to float
             transfrgs[paths_str] += value
             # for p in paths:
             #     if int(p) not in all_nodes:

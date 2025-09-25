@@ -6,7 +6,7 @@ from Bio import SeqIO
 from Bio.Seq import Seq
 from collections import defaultdict
 
-# 读取 inversion.exons 文件
+# read inversion.exons file
 def read_inversion_exons(file):
     inversion_exons = []
     with open(file, 'r') as f:
@@ -16,7 +16,7 @@ def read_inversion_exons(file):
             inversion_exons.append((chrom, start, end, "-", coverage))  # 负链方向
     return inversion_exons
 
-# 读取 JUNC 文件
+# read JUNC file
 def read_junc_file(file):
     junc_connections = []
     with open(file, 'r') as f:
@@ -29,7 +29,7 @@ def read_junc_file(file):
                 junc_connections.append((exon1, exon2, float(coverage)))
     return junc_connections
 
-# 读取 GTF 文件
+# read GTF file
 def read_gtf_file(file):
     transcripts = defaultdict(list)
     with open(file, 'r') as f:
@@ -52,12 +52,7 @@ def read_gtf_file(file):
 
 def read_gtf_file2(file):
     """
-    解析 GTF 文件，记录基因和转录本的相关信息，包括：
-    - 基因 ID
-    - 转录本 ID
-    - 外显子信息（染色体、起始位置、结束位置、方向、覆盖率）
-    - 转录本覆盖率、FPKM、TPM
-    - 基因和转录本的方向
+    parses a GTF file and returns a dictionary of transcripts with their exons and coverage information.
     """
     transcripts = defaultdict(lambda: {
         "gene_id": "",
@@ -84,23 +79,23 @@ def read_gtf_file2(file):
             strand = parts[6]
             attributes = parts[8]
 
-            # 提取 gene_id 和 transcript_id
+            # extract gene_id and transcript_id
             gene_id_match = re.search(r'gene_id "([^"]+)"', attributes)
             transcript_id_match = re.search(r'transcript_id "([^"]+)"', attributes)
 
             gene_id = gene_id_match.group(1) if gene_id_match else ""
             transcript_id = transcript_id_match.group(1) if transcript_id_match else ""
 
-            # 初始化转录本信息
+            # initialize transcript entry if not exists
             if transcript_id and transcript_id not in transcripts:
                 transcripts[transcript_id]["gene_id"] = gene_id
                 transcripts[transcript_id]["strand"] = strand
 
-            # 处理外显子信息
+            # handle exon entries
             if feature_type == "exon":
                 transcripts[transcript_id]["exons"].append((chrom, start, end, strand))
 
-                # 提取外显子的覆盖率（如果有）
+                # extract exon coverage if available
                 exon_coverage_match = re.search(r'cov "([^"]+)"', attributes)
                 print("exon_coverage_match:", exon_coverage_match)
                 if exon_coverage_match:
@@ -109,7 +104,7 @@ def read_gtf_file2(file):
                 else:
                     transcripts[transcript_id]["exon_coverage"].append((start, end, None))
 
-            # 处理转录本覆盖率、FPKM 和 TPM 信息
+            # handle transcript entries for coverage, FPKM, TPM
             if feature_type == "transcript":
                 transcript_coverage_match = re.search(r'cov "([^"]+)"', attributes)
                 FPKM_match = re.search(r'FPKM "([^"]+)"', attributes)
@@ -124,42 +119,42 @@ def read_gtf_file2(file):
 
     return transcripts
 
-# 判断外显子是否重叠
+# check if two exons overlap
 def exon_overlap(exon1, exon2):
     start1, end1 = exon1
     start2, end2 = exon2
     return not (end1 < start2 or start1 > end2)
 
-# 找到每个 inversion.exon 的前后连接
+# find connections for each inversion.exon
 def find_connections_for_inversion(inversion_exons, junc_connections):
     inversion_connections = {}
     for chrom, inv_start, inv_end, inv_strand, inv_coverage in inversion_exons:
         for exon1, exon2, junc_coverage in junc_connections:
-            # 检查 inversion.exon 是否与 JUNC 文件的连接点匹配
+            # check if exon1 or exon2 overlaps with inversion.exon
             if exon_overlap((inv_start, inv_end), (exon1[0], exon1[1])):
                 inversion_connections[(chrom, inv_start, inv_end)] = ("prev", exon1, exon2)
             elif exon_overlap((inv_start, inv_end), (exon2[0], exon2[1])):
                 inversion_connections[(chrom, inv_start, inv_end)] = ("next", exon1, exon2)
     return inversion_connections
 
-# 根据 GTF 文件和 inversion.exons 的连接信息剥离转录本
+# split transcripts by connections
 def split_transcripts_by_connections(inversion_connections, transcripts):
     new_transcripts = defaultdict(list)
     updated_transcripts = defaultdict(list)
 
     for (chrom, inv_start, inv_end), (relation, exon1, exon2) in inversion_connections.items():
         for transcript_id, exons in transcripts.items():
-            # 检查前后连接是否属于同一个转录本
+            # check if both exon1 and exon2 are in the transcript
             if exon1 in exons and exon2 in exons:
-                # 将 inversion.exon 从该转录本中剥离，生成新的转录本
+                # create a new transcript with the inversion.exon
                 new_transcripts[transcript_id].append((chrom, inv_start, inv_end, "-", exons))
-                # 剩余的部分保留在原转录本中
+                # remove the inversion.exon from the original transcript
                 updated_transcripts[transcript_id] = [
                     e for e in exons if not exon_overlap((e[1], e[2]), (inv_start, inv_end))
                 ]
     return new_transcripts, updated_transcripts
 
-# 输出转录本到文件
+# write transcripts to file
 def write_transcripts(transcripts, output_file, is_new=False):
     with open(output_file, "w") as f:
         for transcript_id, exons in transcripts.items():
@@ -173,29 +168,13 @@ def write_transcripts(transcripts, output_file, is_new=False):
 
 def find_flanking_exons_single_pair(inversion_exons, junc_connections):
     """
-    查找每个 inversion exon 的前外显子和后外显子配对，仅保留一个组合（先到先得）。
-
-    参数：
-        inversion_exons: list
-            包含所有 inversion exons 的列表，每个元素是一个元组：
-            (chrom, start, end, strand, coverage)
-        junc_connections: list
-            包含所有 JUNC 文件中的连接信息，每个元素是一个元组：
-            ((start1, end1, strand1), (start2, end2, strand2), coverage)
-
-    返回：
-        flanking_exons: dict
-            以每个 inversion exon 为键，值是一个配对记录：
-            {
-                "prev_exon": (prev_start, prev_end, prev_strand, prev_coverage),
-                "next_exon": (next_start, next_end, next_strand, next_coverage)
-            }
+    find the flanking exons for each inversion exon based on JUNC connections.
     """
     print("inversion_exons:", inversion_exons)
     print("junc_connections:", junc_connections)
     flanking_exons = {}
 
-    # 初始化每个 inversion exon 的记录
+    # initialize each inversion exon entry
     for inversion_exon in inversion_exons:
         chrom, inv_start, inv_end, inv_strand, inv_coverage = inversion_exon
         flanking_exons[(chrom, inv_start, inv_end, inv_strand, inv_coverage)] = {
@@ -203,24 +182,24 @@ def find_flanking_exons_single_pair(inversion_exons, junc_connections):
             "next_exon": None
         }
 
-    # 遍历每个 JUNC 连接
+    # loop through each junction connection
     for exon1, exon2, junc_coverage in junc_connections:
         exon1_start, exon1_end, exon1_strand = exon1
         exon2_start, exon2_end, exon2_strand = exon2
 
-        # 遍历每个 inversion exon
+        # loop through each inversion exon to see if it matches exon1 or exon2
         for inversion_exon in inversion_exons:
             chrom, inv_start, inv_end, inv_strand, inv_coverage = inversion_exon
             key = (chrom, inv_start, inv_end, inv_strand, inv_coverage)
 
-            # 如果 current exon 是 exon2（后外显子），记录 prev_exon
+            # if current exon is exon2 (later), record prev_exon
             if exon2_start == inv_start and exon2_end == inv_end:
-                if flanking_exons[key]["prev_exon"] is None:  # 先到先得
+                if flanking_exons[key]["prev_exon"] is None:  
                     flanking_exons[key]["prev_exon"] = (exon1_start, exon1_end, exon1_strand, junc_coverage)
 
-            # 如果 current exon 是 exon1（前外显子），记录 next_exon
+            # if current exon is exon1 (previous), record next_exon
             elif exon1_start == inv_start and exon1_end:
-                if flanking_exons[key]["next_exon"] is None:  # 先到先得
+                if flanking_exons[key]["next_exon"] is None: 
                     flanking_exons[key]["next_exon"] = (exon2_start, exon2_end, exon2_strand, junc_coverage)
 
 
@@ -335,55 +314,11 @@ def assign_trf(matched_transcripts, transcripts):
     return new_records, transcripts
 
 
-# def process_transcript(exons, ref_fasta, vcf_file, haplotype, tr_strand):
-#     """
-#     处理单个转录本，提取并拼接所有外显子序列，同时考虑方向和倒位。
-#     """
-#     full_seq = ""
-#     for chrom, start, end, strand in exons:
-#         region = f"{chrom}:{start}-{end}"
-#         region_ = f"{chrom}_{start}_{end}"
-#         # 提取参考序列并应用 phased VCF 变异
-#         cmd_samtools = f"samtools faidx {ref_fasta} {region}"
-#         cmd_bcftools = f"bcftools consensus -H {haplotype} {vcf_file}"
-#         print(f"{cmd_samtools} | {cmd_bcftools}")
-#         # try:
-#         #     print(f"{cmd_samtools} | {cmd_bcftools}")
-#         #     result = subprocess.run(f"{cmd_samtools} | {cmd_bcftools}", 
-#         #                              shell=True, check=True)
-#         #     print("start")
-#         #     print(result.stdout)
-#         #     print("end")
-#         # except subprocess.CalledProcessError as e:
-#         #     print(f"Error processing region {region}: {e}")
-#         #     continue
-#         # use os.system
-#         result = subprocess.getoutput(f"{cmd_samtools} | {cmd_bcftools}")
-#         print("result:", result.split("\n"))
 
-        
-#         # 获取序列
-#         seq = "".join(result.split("\n")[1:])
-#         print("seq:", seq)
-        
-        
-#         # 如果该外显子在different方向，取反向互补
-#         if strand !=tr_strand:
-#             seq = str(Seq(seq).reverse_complement())
-#             # store the inversion haps
-#             with open(f"{args.output}/only_inv_haps/{region_}_inv_hap{haplotype}.fa", "w") as f:
-#                 f.write(f">{region_}_inv_hap{haplotype}\n{seq}\n")
-
-        
-#         # 拼接序列
-#         full_seq += seq
-    
-    
-#     return full_seq
 
 def process_transcript(exons, ref_fasta, vcf_file, haplotype, tr_strand):
     """
-    处理单个转录本，提取并拼接所有外显子序列，同时考虑方向和倒位。
+    handle a single transcript, extract and concatenate all exon sequences,
     """
     full_seq = ""
     
@@ -391,127 +326,90 @@ def process_transcript(exons, ref_fasta, vcf_file, haplotype, tr_strand):
         region = f"{chrom}:{start}-{end}"
         region_ = f"{chrom}_{start}_{end}"
         
-        # 构造提取参考序列和应用 VCF 变体的命令
+        # construct commands to extract reference sequence and apply VCF variants
         cmd_samtools = f"samtools faidx {ref_fasta} {region}"
         cmd_bcftools = f"bcftools consensus -H {haplotype} {vcf_file}"
         
         print(f"Executing: {cmd_samtools} | {cmd_bcftools}")
         
-        # 运行命令并获取输出
+        # run the command and get output
         result = subprocess.getoutput(f"{cmd_samtools} | {cmd_bcftools}")
         print("Raw result:", result)
 
-        # 解析输出，去除非序列行
+        # parse output and remove non-sequence lines
         lines = result.split("\n")
         seq_lines = []
         for line in lines:
             if line.startswith("Warning:") or line.startswith("Note:"):
                 continue
-            if line.startswith(">"):  # 识别FASTA标题
+            if line.startswith(">"):
                 continue
-            if line.startswith("Applied"):  # 过滤 Applied X variants
+            if line.startswith("Applied"):
                 continue
             seq_lines.append(line)
         
         seq = "".join(seq_lines)
         print("Extracted sequence:", seq)
 
-        # 如果该外显子在不同方向，则取反向互补
+        # if strand is different from transcript strand, reverse complement the sequence
         print("strand:", strand, "tr_strand:", tr_strand)
         if strand != tr_strand:
             seq = str(Seq(seq).reverse_complement())
 
-            # 存储反向互补结果
+            # store the inversion haps
             inv_output_file = f"{args.output}/only_inv_haps/{region_}_inv_hap{haplotype}.fa"
             with open(inv_output_file, "w") as f:
                 f.write(f">{region_}_inv_hap{haplotype}\n{seq}\n")
             print(f"Saved inverted sequence to: {inv_output_file}")
 
-        # 拼接序列
+        # concatenate sequences
         full_seq += seq
         print("Current full_seq:", full_seq)
 
     return full_seq
 
-
-# def process_normal_transcript(exons, ref_fasta, vcf_file, haplotype):
-#     """
-#     处理单个转录本，提取并拼接所有外显子序列，同时考虑方向和倒位。
-#     """
-#     full_seq = ""
-#     for chrom, start, end, strand in exons:
-#         region = f"{chrom}:{start}-{end}"
-        
-#         # 提取参考序列并应用 phased VCF 变异
-#         cmd_samtools = f"samtools faidx {ref_fasta} {region}"
-#         cmd_bcftools = f"bcftools consensus -H {haplotype} {vcf_file}"
-#         print(f"{cmd_samtools} | {cmd_bcftools}")
-#         # try:
-#         #     print(f"{cmd_samtools} | {cmd_bcftools}")
-#         #     result = subprocess.run(f"{cmd_samtools} | {cmd_bcftools}", 
-#         #                              shell=True, check=True)
-#         #     print("start")
-#         #     print(result.stdout)
-#         #     print("end")
-#         # except subprocess.CalledProcessError as e:
-#         #     print(f"Error processing region {region}: {e}")
-#         #     continue
-#         # use os.system
-#         result = subprocess.getoutput(f"{cmd_samtools} | {cmd_bcftools}")
-
-        
-#         # 获取序列
-#         seq = "".join(result.split("\n")[1:])
-        
-    
-        
-#         # 拼接序列
-#         full_seq += seq
-    
-    
-#     return full_seq
-
 def process_normal_transcript(exons, ref_fasta, vcf_file, haplotype):
     """
-    处理单个转录本，提取并拼接所有外显子序列，同时考虑方向和倒位。
+    handle a single transcript, extract and concatenate all exon sequences,
+    while considering strand and inversion.
     """
     full_seq = ""
     
     for chrom, start, end, strand in exons:
         region = f"{chrom}:{start}-{end}"
         
-        # 构造提取参考序列和应用 VCF 变体的命令
+        # construct commands to extract reference sequence and apply VCF variants
         cmd_samtools = f"samtools faidx {ref_fasta} {region}"
         cmd_bcftools = f"bcftools consensus -H {haplotype} {vcf_file}"
         
         print(f"Executing: {cmd_samtools} | {cmd_bcftools}")
         
         try:
-            # 运行命令并获取输出
+            # run the command and get output
             result = subprocess.getoutput(f"{cmd_samtools} | {cmd_bcftools}")
             print("Raw result:", result)
 
-            # 解析输出，去除非序列信息
+            # parse output and remove non-sequence lines
             lines = result.split("\n")
             seq_lines = []
             for line in lines:
                 if line.startswith("Warning:") or line.startswith("Note:"):
                     continue
-                if line.startswith(">"):  # 识别FASTA标题
+                if line.startswith(">"):  
                     continue
-                if line.startswith("Applied"):  # 过滤 Applied X variants
+                if line.startswith("Applied"): 
                     continue
                 seq_lines.append(line)
 
             seq = "".join(seq_lines)
             print("Extracted sequence:", seq)
 
-            # 拼接序列
+            # concatenate sequences
             full_seq += seq
 
         except Exception as e:
             print(f"Error processing region {region}: {e}")
-            continue  # 遇到错误时跳过当前外显子，继续处理下一个
+            continue  # skip current exon on error
     
     return full_seq
 
@@ -519,20 +417,20 @@ def merge_consistent_blk(blk_list):
     result = []
     current_group = [blk_list[0]]
 
-    # 遍历数据从第二个元素开始
+    # loop through the rest of the items
     for item in blk_list[1:]:
-        # 如果符号和当前分组的符号一样，则加入当前分组
+        # if the symbol is the same as the last item in the current group, add it to the group
         if item[3] == current_group[-1][3]:
             current_group.append(item)
         else:
-            # 如果符号发生变化，则将当前分组加入结果列表，并开始新的分组
+            # if the symbol changes, add the current group to the result list and start a new group
             result.append(current_group)
             current_group = [item]
 
-    # 将最后一个分组加入结果
+    # add the last group to the result
     result.append(current_group)
 
-    # 打印结果
+    # print the result
     for i, group in enumerate(result):
         print(f"Group {i+1}: {group}")
     return result
@@ -634,7 +532,7 @@ def generate_seq(new_records, old_records, phased_vcf, ref, output_dir):
 def main():
     
 
-    # 读取文件
+    # read files
     inversion_exons = read_inversion_exons(args.inversion_exons)
     junc_connections = read_junc_file(args.junc)
     transcripts = read_gtf_file2(args.gtf)
@@ -670,7 +568,7 @@ def main():
 
 
 if __name__ == "__main__":
-    # 使用 argparse 管理命令行参数
+    # use argparse to get input files and output dir
     parser = argparse.ArgumentParser(description="Process inversion exons, junction files, and GTF to split transcripts.")
     parser.add_argument('-i', '--inversion_exons', required=True, help="Path to the inversion.exons file.")
     parser.add_argument('-j', '--junc', required=True, help="Path to the inv junctions.junc file.")

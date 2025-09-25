@@ -15,17 +15,17 @@ def get_seq(seq_segments, fasta):
 
 
 def get_gene_sequences(gtf_file, genome_file, output_file):
-    # 创建数据库
+    # create gffutils database
     db = gffutils.create_db(gtf_file, ':memory:', disable_infer_genes=True,
     disable_infer_transcripts=True)
     print(db)
 
-    # 创建FASTA索引
+    # create fasta object
     fasta = pyfaidx.Fasta(genome_file)
     print(db.features_of_type('gene'))
-    # 打开输出文件
+    # open output file
     with open(output_file, 'w') as out:
-        # 遍历每个基因
+        # iterate over genes
         for gene in db.features_of_type('gene'):
             transcripts = list(db.children(gene, featuretype='transcript'))
             for transcript in transcripts:

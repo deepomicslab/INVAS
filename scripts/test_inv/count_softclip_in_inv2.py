@@ -3,7 +3,7 @@ import pysam
 import re
 
 
-# 检测read中soft clipping的长度是否超过阈值
+# check if cigar has soft clipping exceeding threshold
 def has_soft_clipping(cigar_tuples, threshold):
     return any(op == 4 and length > threshold for op, length in cigar_tuples)
 
@@ -29,14 +29,14 @@ def parse_cigar2(cigar_string):
 
     return left_clip_len, left_clip_type, right_clip_len, right_clip_type
 
-# 检查read的blocks是否与给定区域重叠
+# check if read blocks overlap with given region
 def is_read_in_region(read_blocks, region_start, region_end):
     for block_start, block_end in read_blocks:
         if block_start >= region_start and block_end <= region_end:
             return True
     return False
 
-# 统计整个BAM文件中，与给定区域重叠且soft clipping长度超过阈值的reads数量
+# count soft clipped reads in specified regions
 def count_soft_clipped_reads(bam_file, regions, threshold):
     soft_clipped_counts = {region: 0 for region in regions}
     with pysam.AlignmentFile(bam_file, "rb") as bam:
@@ -54,7 +54,7 @@ def count_soft_clipped_reads(bam_file, regions, threshold):
                             soft_clipped_counts[region] += 1
     return soft_clipped_counts
 
-# 主函数，读取区域文件并统计soft clipping reads数
+# main function to handle input and output
 def main(region_file, bam_file, threshold):
     with open(region_file, 'r') as file:
         regions = [line.split()[0] for line in file]
@@ -62,7 +62,7 @@ def main(region_file, bam_file, threshold):
     for region, count in counts.items():
         print(f"Region: {region}, Soft clipped reads: {count}")
 
-# 接受命令行参数
+# accept command-line arguments
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Count soft-clipped reads that overlap with specified regions in a BAM file and exceed a length threshold.')
     parser.add_argument('region_file', type=str, help='File containing regions (format: chr:start-end)')
