@@ -6,7 +6,6 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-db/
 test/pacbio/output/
 nohup.out
 # C extensions
