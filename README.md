@@ -384,7 +384,7 @@ If you use Invas in your research, please cite:
 
 ## License
 
-This software is released under the [MIT/GPL/Apache] License. See LICENSE file for details.
+This software is released under the [MIT] License. See LICENSE file for details.
 
 ## Contact
 
