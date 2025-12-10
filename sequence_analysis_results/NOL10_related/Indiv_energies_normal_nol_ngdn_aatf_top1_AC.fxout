@@ -1,0 +1,14 @@
+FoldX 5.1 (2011)
+by the FoldX Consortium 
+Jesper Borg, Frederic Rousseau, Joost Schymkowitz,
+Luis Serrano and Francois Stricher
+------------------------------------------------------
+
+PDB file analysed: batch
+Output type: AnalyseComplex
+Pdb	Group	total energy	Backbone Hbond	Sidechain Hbond	Van der Waals	Electrostatics	Solvation Polar	Solvation Hydrophobic	Van der Waals clashes	entropy sidechain	entropy mainchain	sloop_entropy	mloop_entropy	cis_bond	torsional clash	backbone clash	helix dipole	water bridge	disulfide	electrostatic kon	partial covalent bonds	energy Ionisation	Entropy Complex
+./normal_nol_ngdn_aatf_top1.pdb	D	277.096	-169.322	-20.5701	-176.047	-8.49284	315.64	-196.976	10.0506	71.5997	435.759	0	0	0.0624934	14.298	213.465	-0.0123504	0	0	0	0	1.10544	0
+./normal_nol_ngdn_aatf_top1.pdb	A	435.802	-386.364	-84.4217	-561.549	-16.6703	831.192	-709.905	55.7575	257.451	1026.81	0	0	0.598018	22.4809	324.769	-1.27308	0	0	0	0	1.69369	0
+./normal_nol_ngdn_aatf_top1.pdb	D	275.915	-168.806	-21.1523	-176.047	-8.47496	315.378	-196.976	9.01885	72.2139	435.365	0	0	0.0624934	14.3693	213.465	0.266319	0	0	0	0	0.696639	0
+./normal_nol_ngdn_aatf_top1.pdb	A	439.651	-388.022	-84.4069	-561.549	-16.6945	831.655	-709.905	57.9895	257.195	1028.9	0	0	0.598018	23.2758	324.769	-1.27308	0	0	0	0	1.88956	0
+./normal_nol_ngdn_aatf_top1.pdb	C	652.209	-223.451	-48.3215	-268.67	-6.03975	480.802	-306.346	29.6533	126.191	830.251	0	0	1.10371	37.9014	288.92	-1.98983	0	0	0	0	1.12653	0

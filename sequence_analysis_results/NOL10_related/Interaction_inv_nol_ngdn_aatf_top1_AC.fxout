@@ -1,0 +1,19 @@
+FoldX 5.1 (2011)
+by the FoldX Consortium 
+Jesper Borg, Frederic Rousseau, Joost Schymkowitz,
+Luis Serrano and Francois Stricher
+------------------------------------------------------
+
+PDB file analysed: batch
+Output type: AnalyseComplex
+Pdb	Group1	Group2	IntraclashesGroup1	IntraclashesGroup2	Interaction Energy	Backbone Hbond	Sidechain Hbond	Van der Waals	Electrostatics	Solvation Polar	Solvation Hydrophobic	Van der Waals clashes	entropy sidechain	entropy mainchain	sloop_entropy	mloop_entropy	cis_bond	torsional clash	backbone clash	helix dipole	water bridge	disulfide	electrostatic kon	partial covalent bonds	energy Ionisation	Entropy Complex	Number of Residues	Interface Residues	Interface Residues Clashing	Interface Residues VdW Clashing	Interface Residues BB Clashing
+./inv_nol_ngdn_aatf_top1.pdb	D	A	23.3937	75.2522	195.954	-4.67643	-7.96924	-36.7545	-1.27405	61.7628	-46.0838	184.5	27.3652	15.2999	0	0	2.70768	1.11683	6.98614	0.0358406	0	0	-0.220845	0	0.144663	2.384	2612	122	28	28	0
+./inv_nol_ngdn_aatf_top1.pdb	D	D	23.39	24.07	804.043	-5.20266	-8.74916	-62.5369	-6.40526	108.124	-74.2717	798.24	39.3036	14.9737	0	0	0	0.587955	177.447	-0.357463	0	0	0	0	0.336093	2.384	2612	143	56	56	20
+./inv_nol_ngdn_aatf_top1.pdb	D	A	23.39	76.59	4193.17	-21.6863	-20.5995	-194.936	-4.95028	356.311	-257	4191.94	101.216	38.4393	0	0	0.131992	3.19794	1478.55	0.651613	0	0	-0.0694675	0	0.530007	2.384	2612	343	222	218	135
+./inv_nol_ngdn_aatf_top1.pdb	D	C	23.39	67.98	608.713	-3.41661	-1.56737	-43.2283	-2.63238	76.2241	-59.6416	603.659	24.347	13.9123	0	0	0	0.977904	161.064	-0.14015	0	0	0.219054	0	-4.44089e-16	2.384	2612	100	45	43	17
+./inv_nol_ngdn_aatf_top1.pdb	A	D	75.25	24.07	193.3	-0.692902	-0.587458	-20.2238	0.080998	28.8218	-26.1752	192.083	10.8342	8.44803	0	0	6.93889e-17	0.734695	33.7546	-0.0237627	0	0	0	0	1.11022e-15	2.384	2612	39	17	17	7
+./inv_nol_ngdn_aatf_top1.pdb	A	A	75.25	76.59	7328.91	-39.3026	-42.4692	-359.633	-3.91831	705.652	-454.184	7258.29	175.455	79.7972	0	0	3.27261	6.04553	2129.79	-0.663658	0	0	0	0	0.565531	2.384	2612	592	420	412	210
+./inv_nol_ngdn_aatf_top1.pdb	A	C	75.25	67.98	7266.44	-30.8074	-42.0041	-311.523	-20.0768	600.96	-417.133	7268.86	135.814	80.7283	0	0	0	2.77702	2279.76	-0.207026	0	0	-2.13422	0	1.18524	2.384	2612	510	384	379	229
+./inv_nol_ngdn_aatf_top1.pdb	D	A	24.07	76.59	196.366	-4.00196	-7.98671	-36.7545	-1.35506	61.5279	-46.0838	185.338	27.1716	14.7952	0	0	2.70768	1.113	6.98614	0.036998	0	0	-0.321137	0	0.179002	2.384	2612	122	28	28	0
+./inv_nol_ngdn_aatf_top1.pdb	D	C	24.07	67.98	121.998	-0.496154	-7.10543e-15	-11.4463	-0.628151	15.9926	-16.2665	126.204	8.31685	0.369969	0	0	0	0.0146677	6.34663	-0.0353611	0	0	-0.0273371	0	2.22045e-16	2.384	2612	24	12	12	2
+./inv_nol_ngdn_aatf_top1.pdb	A	C	76.59	67.98	109.671	-2.22772	-6.49415	-31.8308	4.09042	57.5464	-39.21	91.0479	23.2654	12.2226	0	0	0	0.0322844	7.11474	0.0488075	0	0	1.14122	0	0.0384084	2.384	2612	153	24	24	0

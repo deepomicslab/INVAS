@@ -1,0 +1,17 @@
+# ===========================================================================
+command: prodigy model.000.00.pdb --selection B A --temperature 25 --contact_list --pymol_selection
+exit status: 0
+log:
+[+] Reading structure file: /data/runs/a40580f0-6cbe-4df2-a91d-7c5a1f4769fa/model.000.00.pdb
+[+] Parsed structure file model.000.00 (2 chains, 1236 residues)
+[+] No. of intermolecular contacts: 96
+[+] No. of charged-charged contacts: 5
+[+] No. of charged-polar contacts: 2
+[+] No. of charged-apolar contacts: 25
+[+] No. of polar-polar contacts: 0
+[+] No. of apolar-polar contacts: 18
+[+] No. of apolar-apolar contacts: 46
+[+] Percentage of apolar NIS residues: 43.33
+[+] Percentage of charged NIS residues: 23.27
+[++] Predicted binding affinity (kcal.mol-1):    -11.7
+[++] Predicted dissociation constant (M) at 25.0˚C:  2.7e-09

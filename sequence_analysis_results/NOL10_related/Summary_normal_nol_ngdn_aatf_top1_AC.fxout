@@ -1,0 +1,19 @@
+FoldX 5.1 (2011)
+by the FoldX Consortium 
+Jesper Borg, Frederic Rousseau, Joost Schymkowitz,
+Luis Serrano and Francois Stricher
+------------------------------------------------------
+
+PDB file analysed: batch
+Output type: AnalyseComplex
+Pdb	Group1	Group2	IntraclashesGroup1	IntraclashesGroup2	Interaction Energy	StabilityGroup1	StabilityGroup2
+./normal_nol_ngdn_aatf_top1.pdb	D	A	24.3486	78.2384	133.651	277.096	435.802
+./normal_nol_ngdn_aatf_top1.pdb	D	D	24.3486	23.3882	1272.63	277.096	275.915
+./normal_nol_ngdn_aatf_top1.pdb	D	A	24.3486	81.2653	1049.65	277.096	439.651
+./normal_nol_ngdn_aatf_top1.pdb	D	C	24.3486	67.5547	329.117	277.096	652.209
+./normal_nol_ngdn_aatf_top1.pdb	A	D	78.2384	23.3882	1137.47	435.802	275.915
+./normal_nol_ngdn_aatf_top1.pdb	A	A	78.2384	81.2653	8415.09	435.802	439.651
+./normal_nol_ngdn_aatf_top1.pdb	A	C	78.2384	67.5547	3627.69	435.802	652.209
+./normal_nol_ngdn_aatf_top1.pdb	D	A	23.3882	81.2653	133.509	275.915	439.651
+./normal_nol_ngdn_aatf_top1.pdb	D	C	23.3882	67.5547	29.2392	275.915	652.209
+./normal_nol_ngdn_aatf_top1.pdb	A	C	81.2653	67.5547	117.296	439.651	652.209
