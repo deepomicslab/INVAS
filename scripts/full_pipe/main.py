@@ -308,6 +308,8 @@ if __name__ == "__main__":
     parser.add_argument("--rna_map_with_remap_bam", required=True, help="RNA mapped and remapped BAM file.")
     parser.add_argument("--rna_unmap_bwa_bam", required=True, help="RNA unmapped BWA BAM file.")
     parser.add_argument("--wgs_bam", required=True, help="wgs BAM file.")
+    # add --target_gene
+    parser.add_argument("--target_gene", required=False, default="", help="Target gene to process.")
     parser.add_argument("--with_normal_haps", required=False, default=False, action="store_true", help="Whether to use normal haps.")
     args = parser.parse_args()
 
