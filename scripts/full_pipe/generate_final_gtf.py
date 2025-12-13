@@ -368,6 +368,98 @@ def process_transcript(exons, ref_fasta, vcf_file, haplotype, tr_strand):
 
     return full_seq
 
+
+import os
+import subprocess
+from Bio.Seq import Seq
+
+def process_transcript_novcf(exons, ref_fasta, vcf_file, haplotype, tr_strand):
+    """
+    handle a single transcript, extract and concatenate all exon sequences,
+    """
+    full_seq = ""
+    
+    # Check if VCF file exists and is valid
+    vcf_exists = vcf_file and os.path.exists(vcf_file)
+    
+    for chrom, start, end, strand in exons:
+        region = f"{chrom}:{start}-{end}"
+        region_ = f"{chrom}_{start}_{end}"
+        
+        if vcf_exists:
+            # When VCF file exists, apply variants
+            cmd_samtools = f"samtools faidx {ref_fasta} {region}"
+            cmd_bcftools = f"bcftools consensus -H {haplotype} {vcf_file}"
+            cmd = f"{cmd_samtools} | {cmd_bcftools}"
+            print(f"Executing: {cmd}")
+        else:
+            # When VCF file doesn't exist, extract reference sequence only
+            cmd = f"samtools faidx {ref_fasta} {region}"
+            print(f"VCF not found, extracting reference only: {cmd}")
+        
+        # Use subprocess.run instead of getoutput for better error handling
+        try:
+            result = subprocess.run(
+                cmd,
+                shell=True,
+                capture_output=True,
+                text=True,
+                check=False  # Don't auto-raise exception, check manually
+            )
+            
+            if result.returncode != 0:
+                print(f"Warning: command returned non-zero exit code: {result.returncode}")
+                print(f"stderr: {result.stderr}")
+            
+            output = result.stdout
+            
+        except Exception as e:
+            print(f"Error executing command: {e}")
+            continue  # Skip this exon or raise exception based on your needs
+        
+        print("Raw result:", output)
+
+        # Parse output and remove non-sequence lines
+        lines = output.split("\n")
+        seq_lines = []
+        for line in lines:
+            if line.startswith("Warning:") or line.startswith("Note:"):
+                continue
+            if line.startswith(">"):
+                continue
+            if line.startswith("Applied"):
+                continue
+            if line.strip():  # Ignore empty lines
+                seq_lines.append(line.strip())
+        
+        seq = "".join(seq_lines)
+        
+        # Validate that sequence is not empty
+        if not seq:
+            print(f"Warning: No sequence extracted for {region}")
+            continue
+        
+        print("Extracted sequence:", seq[:50], "..." if len(seq) > 50 else "")
+
+        # If strand is different from transcript strand, reverse complement
+        print("strand:", strand, "tr_strand:", tr_strand)
+        if strand != tr_strand:
+            seq = str(Seq(seq).reverse_complement())
+
+            # Store the inversion haps
+            inv_output_dir = f"{args.output}/only_inv_haps"
+            os.makedirs(inv_output_dir, exist_ok=True)  # Ensure directory exists
+            
+            inv_output_file = f"{inv_output_dir}/{region_}_inv_hap{haplotype}.fa"
+            with open(inv_output_file, "w") as f:
+                f.write(f">{region_}_inv_hap{haplotype}\n{seq}\n")
+            print(f"Saved inverted sequence to: {inv_output_file}")
+
+        full_seq += seq
+
+    return full_seq
+    
+
 def process_normal_transcript(exons, ref_fasta, vcf_file, haplotype):
     """
     handle a single transcript, extract and concatenate all exon sequences,
@@ -462,13 +554,13 @@ def generate_seq(new_records, old_records, phased_vcf, ref, output_dir):
         print("grouped_exons:", grouped_exons)
         for group in grouped_exons:
             print("processing")
-            hap1_seq=process_transcript(group, ref, phased_vcf, "1", tr_strand)
-            hap2_seq=process_transcript(group, ref, phased_vcf, "2", tr_strand)
+            hap1_seq=process_transcript_novcf(group, ref, phased_vcf, "1", tr_strand)
+            hap2_seq=process_transcript_novcf(group, ref, phased_vcf, "2", tr_strand)
             full_hap1_seq+=hap1_seq
             full_hap2_seq+=hap2_seq
             if args.with_normal_haps:
-                hap1_normal_hap=process_normal_transcript(group, ref, phased_vcf, "1")
-                hap2_normal_hap=process_normal_transcript(group, ref, phased_vcf, "2")
+                hap1_normal_hap=process_transcript_novcf(group, ref, phased_vcf, "1")
+                hap2_normal_hap=process_transcript_novcf(group, ref, phased_vcf, "2")
                 full_hap1_normal_seq+=hap1_normal_hap
                 full_hap2_normal_seq+=hap2_normal_hap
         if tr_strand == "-":
@@ -496,8 +588,8 @@ def generate_seq(new_records, old_records, phased_vcf, ref, output_dir):
             full_hap1_normal_seq = ""
             full_hap2_normal_seq = ""
         for group in grouped_exons:
-            hap1_seq=process_transcript(group, ref, phased_vcf, "1", tr_strand)
-            hap2_seq=process_transcript(group, ref, phased_vcf, "2", tr_strand)
+            hap1_seq=process_transcript_novcf(group, ref, phased_vcf, "1", tr_strand)
+            hap2_seq=process_transcript_novcf(group, ref, phased_vcf, "2", tr_strand)
             full_hap1_seq+=hap1_seq
             full_hap2_seq+=hap2_seq
             print("group:", group)
