@@ -1,19 +1,18 @@
-# process each chromosome separately
-inv_vcf=$1
+inv_input=$1
 hg38_genes_bed=$2
 still_unmap_bwa_bam=$3
 hisat2_bam=$4
-
-# !!!!!!!!! filter map0 reads in still_unmap_bwa_bam and hisat2_bam
-
-
-
 outdir=$5
-# get execute directory
-script_dir=$(dirname "$0")
 
+script_dir=$(dirname "$0")
 inv_bed="$outdir"/inv.bed
-python "$script_dir"/invvcf2bed.py "$inv_vcf" "$inv_bed" 50000
+
+# 判断输入类型
+if [[ "$inv_input" == *.vcf ]]; then
+    python "$script_dir"/invvcf2bed.py "$inv_input" "$inv_bed" 50000
+else
+    cp "$inv_input" "$inv_bed"
+fi
 
 for chr in {1..22} X; do
     echo Processing $chr

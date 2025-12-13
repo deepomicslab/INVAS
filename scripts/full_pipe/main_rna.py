@@ -300,11 +300,12 @@ if __name__ == "__main__":
     script_dir = os.path.dirname(os.path.realpath(__file__))
     # Parse command-line arguments
     parser = argparse.ArgumentParser(description="Pipeline for processing genes.")
-    parser.add_argument("--input_dir", required=True, help="Input directory containing gene data.")
+    parser.add_argument("--input_file", required=True, help="Input file containing gene data.")
     parser.add_argument("--sample_name", required=True, help="Sample name.")
     parser.add_argument("--extend_region", type=int, default=1000, help="Extension region size.")
     parser.add_argument("--output_dir", required=True, help="Output directory.")
     parser.add_argument("--ref_genome", required=True, help="Reference genome file.")
+    parser.add_argument("--ref_version", required=True, help="Reference genome version.")
     parser.add_argument("--rna_map_with_remap_bam", required=True, help="RNA mapped and remapped BAM file.")
     parser.add_argument("--rna_unmap_bwa_bam", required=True, help="RNA unmapped BWA BAM file.")
     # parser.add_argument("--wgs_bam", required=True, help="wgs BAM file.")
@@ -319,7 +320,8 @@ if __name__ == "__main__":
 
     # Get support tools for candidate genes
     candidate_gene_file = os.path.join(args.output_dir, "candidate_gene.txt")
-    run_command(f"""python "{script_dir}"/get_candidate_vote.py -i "{args.input_dir}" -m 1 -o "{candidate_gene_file}" """)
+    run_command(f"""python "{script_dir}"/get_candidate_rna_only.py  "{args.input_file}" "{candidate_gene_file}" """)
+
 
     # Parse candidate gene files
     candidate_genes, gene_dict = parse_unique_genes_from_file(candidate_gene_file)
