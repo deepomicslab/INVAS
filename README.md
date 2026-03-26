@@ -34,6 +34,8 @@ Both modes ultimately perform **conjugate graph-based transcriptome assembly**.
 - Reconstruction of **normal and inverted isoforms**
 - Re-alignment of unmapped RNA-seq reads
 - Iterative conjugate maximum-flow network model
+- **Built-in [IvasDB](https://github.com/yourusername/Invas/blob/main/IvasDB) database** for inversion annotation and cross-sample comparison
+
 
 ---
 
