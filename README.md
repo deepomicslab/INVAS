@@ -49,7 +49,7 @@ Both modes ultimately perform **conjugate graph-based transcriptome assembly**.
 ### Setup
 
 ```bash
-git clone git@github.com:deepomicslab/INVAS.git
+git clone https://github.com/deepomicslab/INVAS.git
 cd INVAS
 
 2. Create conda environments:
