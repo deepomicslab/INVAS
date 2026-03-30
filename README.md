@@ -40,6 +40,7 @@ Both modes ultimately perform **conjugate graph-based transcriptome assembly**.
 ---
 
 ## Installation
+- Docker guidance: [docker/readme.md](docker/readme.md)
 
 ### Prerequisites
 
