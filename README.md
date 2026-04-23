@@ -24,6 +24,15 @@ Both modes ultimately perform **conjugate graph-based transcriptome assembly**.
 
 ---
 
+## Further Documentation
+
+| Document | Description |
+|----------|-------------|
+| [Algorithm Design & Parameter Choices](docs/algorithm_design.md) | Justification for HISAT2 and RefSeq defaults; SSW alignment parameters and aligner benchmarks |
+| [Docker Guide](docker/readme.md) | Running INVAS inside a Docker container |
+
+---
+
 ## Features
 
 - Detection of intragenomic inversions
@@ -614,6 +623,6 @@ For questions, bug reports, or feature requests:
 ## Acknowledgments
 
 Invas incorporates several published tools:
-- HISAT2 for RNA-seq alignment
+- HISAT2 for RNA-seq alignment (default; see [Algorithm Design](docs/algorithm_design.md#1-why-hisat2-as-the-default-rna-seq-aligner) for rationale and alternatives)
 - Manta, Delly, Lumpy, and Svaba for SV detection
 - Picard for BAM file processing
